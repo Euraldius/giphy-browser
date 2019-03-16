@@ -1,0 +1,18 @@
+{
+  "src_folders": ["tests"],
+  "test_settings": {
+    "default": {
+      "desiredCapabilities": {
+        "browserName": "firefox"
+      }
+    }
+  },
+  "webdriver": {
+    "cli_args": [
+      "--log", "debug"
+    ],
+    "port": 4444,
+    "start_process": true,
+    "server_path": "node_modules/.bin/geckodriver"
+  }
+}
