@@ -1,0 +1,14 @@
+.full-size-gif {
+  background-color: rgba(30, 30, 30, 0.95);
+  display: grid;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.full-size-gif img {
+  margin: auto;
+}
