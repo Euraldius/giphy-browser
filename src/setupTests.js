@@ -4,8 +4,6 @@ import 'jest-enzyme';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-global.fetch = require('jest-fetch-mock')
-
 module.exports = {
   'setupTestFrameworkScriptFile': 'jest-enzyme',
   'testEnvironment': 'enzyme',

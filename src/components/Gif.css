@@ -27,3 +27,7 @@
   color: red;
   cursor: pointer;
 }
+
+.fixed-size-gif:hover {
+  cursor: pointer;
+}

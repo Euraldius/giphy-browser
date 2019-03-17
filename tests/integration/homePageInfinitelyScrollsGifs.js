@@ -9,7 +9,7 @@ this.homePageInfinitelyScrollsGifs = function (browser) {
   browser
     .url('http://localhost:3001')
     .waitForElementVisible('body')
-    .waitForElementVisible('.gif');
+    .waitForElementVisible('.gif:first-of-type');
 
 
     browser.elements('css selector', '.gif',

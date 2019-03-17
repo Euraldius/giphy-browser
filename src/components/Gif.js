@@ -30,7 +30,7 @@ class Gif extends Component {
             <img src={original.url} alt={title} />
           </div>
         ): null}
-        <img onClick={this.toggleFullSize} src={fixed_height.url} alt={title} />
+        <img className="fixed-size-gif" onClick={this.toggleFullSize} src={fixed_height.url} alt={title} />
       </>
     );
   }

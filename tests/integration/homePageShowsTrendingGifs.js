@@ -4,7 +4,7 @@ module.exports = {
       .url('http://localhost:3001')
       .waitForElementVisible('body')
       .assert.containsText('body', 'Trending gifs!')
-      .waitForElementVisible('.gif')
+      .waitForElementVisible('.gif:first-of-type')
       .end();
   }
 };

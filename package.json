@@ -16,20 +16,25 @@
     "not op_mini all"
   ],
   "dependencies": {
-    "lodash.throttle": "^4.1.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "react-scripts": "2.1.8"
+    "react-redux": "^6.0.1",
+    "react-scripts": "2.1.8",
+    "react-waypoint": "^9.0.1",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.11.2",
+    "fetch-mock": "^7.3.1",
     "geckodriver": "^1.16.0",
     "jest-environment-enzyme": "^7.0.2",
     "jest-enzyme": "^7.0.2",
-    "jest-fetch-mock": "^2.1.1",
     "lodash.clonedeep": "^4.5.0",
-    "nightwatch": "^1.0.19"
+    "nightwatch": "^1.0.19",
+    "node-fetch": "^2.3.0",
+    "redux-mock-store": "^1.5.3"
   },
   "eslintConfig": {
     "extends": "react-app"
