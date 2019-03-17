@@ -10,13 +10,13 @@ describe('<App />', () => {
   it('fetches and displays trending gifs from giphy', done => {
     const mockGifs = [{ type: 'gif', id: 'test-id', url: 'http://giphy.com/test-id' }];
     fetch.mockResponse(JSON.stringify({ data: mockGifs }))
-    const wrapper = shallow(<App />);
+    const wrapper = shallow(<App giphyApiHost='http://crimethinc.com' />);
 
     setTimeout(() => {
       const gif = wrapper.find('Gif');
       expect(gif).toBeDefined();
       expect(fetch.mock.calls.length).toBe(1);
-      expect(fetch.mock.calls[0][0]).toMatch(new RegExp('^https://api.giphy.com/v1/gifs/trending'));
+      expect(fetch.mock.calls[0][0]).toMatch(new RegExp('^http://crimethinc.com/v1/gifs/trending'));
 
       done();
     }, 1);

@@ -13,8 +13,9 @@ class App extends Component {
   }
 
   componentDidMount() {
+    const { giphyApiHost } = this.props;
     const { REACT_APP_GIPHY_API_KEY } = process.env;
-    const trendingGifsURL = `https://api.giphy.com/v1/gifs/trending?apiKey=${REACT_APP_GIPHY_API_KEY}`;
+    const trendingGifsURL = `${giphyApiHost}/v1/gifs/trending?apiKey=${REACT_APP_GIPHY_API_KEY}`;
 
     fetch(trendingGifsURL)
       .then(response => response.json())

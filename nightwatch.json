@@ -1,5 +1,5 @@
 {
-  "src_folders": ["tests"],
+  "src_folders": ["tests/integration"],
   "test_settings": {
     "default": {
       "desiredCapabilities": {
