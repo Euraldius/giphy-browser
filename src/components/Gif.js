@@ -10,11 +10,11 @@ class Gif extends Component {
     };
   }
 
-  showFullGif = () => {
+  toggleFullSize = () => {
     this.setState({
-      showFullGif: true,
+      showFullGif: !this.state.showFullGif,
     });
-  }
+  };
 
   render() {
     const { showFullGif } = this.state;
@@ -26,10 +26,11 @@ class Gif extends Component {
       <>
         {showFullGif ? (
           <div className="full-size-gif">
+            <button className="close-full-size" onClick={this.toggleFullSize}>X</button>
             <img src={original.url} alt={title} />
           </div>
         ): null}
-        <img onClick={this.showFullGif} src={fixed_height.url} alt={title} />
+        <img onClick={this.toggleFullSize} src={fixed_height.url} alt={title} />
       </>
     );
   }

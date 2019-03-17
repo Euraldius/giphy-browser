@@ -12,5 +12,11 @@ this.userClicksOnGifToViewFullSize = function (browser) {
 
   browser.click(firstGifOnPage)
     .waitForElementVisible('.full-size-gif')
-    .end;
+    .getAttribute('.full-size-gif img', 'src', result => {
+      browser.assert.equal(result.value, 'http://localhost:3002/black-cat.gif');
+  });
+
+  browser.click('.close-full-size')
+    .waitForElementNotPresent('.full-size-gif')
+    .end();
 }
