@@ -15,6 +15,12 @@ You can run the suite with:
 npm run nightwatch
 ```
 
+You can run a specific test with:
+
+```
+npm run nightwatch -- path/to/test.js
+```
+
 This will:
 
 1. Run the app on `localhost:3001`.

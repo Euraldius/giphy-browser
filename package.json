@@ -16,6 +16,7 @@
     "not op_mini all"
   ],
   "dependencies": {
+    "lodash.throttle": "^4.1.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-scripts": "2.1.8"
@@ -27,6 +28,7 @@
     "jest-environment-enzyme": "^7.0.2",
     "jest-enzyme": "^7.0.2",
     "jest-fetch-mock": "^2.1.1",
+    "lodash.clonedeep": "^4.5.0",
     "nightwatch": "^1.0.19"
   },
   "eslintConfig": {
