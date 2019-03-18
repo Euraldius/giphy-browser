@@ -45,7 +45,7 @@ describe('trendingGifsReducers', () => {
   });
 
   describe('REQUEST_TRENDING_GIFS', () => {
-    it('informs that the state the request is in progress', () => {
+    it('informs the state that the request is in progress', () => {
       const state = { gifs: [] };
       const action = { type: REQUEST_TRENDING_GIFS };
 

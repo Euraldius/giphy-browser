@@ -1,4 +1,8 @@
-import { RECEIVE_TRENDING_GIFS, REQUEST_TRENDING_GIFS, REQUEST_TRENDING_GIFS_FAILED } from './actionTypes';
+import {
+  RECEIVE_TRENDING_GIFS,
+  REQUEST_TRENDING_GIFS,
+  REQUEST_TRENDING_GIFS_FAILED,
+} from '../actionTypes';
 
 const requestTrendingGifsFailed = () => {
   return {

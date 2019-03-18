@@ -1,27 +1,27 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
-import { fetchTrendingGifs } from './actions';
+import { searchForGifs } from './searchGifs';
 import {
-  RECEIVE_TRENDING_GIFS,
-  REQUEST_TRENDING_GIFS,
-  REQUEST_TRENDING_GIFS_FAILED,
-} from './actionTypes';
+  RECEIVE_SEARCH_GIFS,
+  REQUEST_SEARCH_GIFS,
+  REQUEST_SEARCH_GIFS_FAILED,
+} from '../actionTypes';
 
 const mockStore = configureMockStore([thunk]);
 
-describe('fetchTrendingGifs', () => {
+describe('searchForGifs', () => {
   afterEach(() => {
     fetchMock.restore();
   });
 
-  it('fetches trending gifs', () => {
+  it('searches for trending gifs', () => {
     const gifs = [{ type: 'gif', id: 'test-id', url: 'http://giphy.com/test-id' }];
-    fetchMock.get('http://api.giphy.com/v1/gifs/trending?apiKey=test-key&offset=0', {
+    fetchMock.get('http://api.giphy.com/v1/gifs/search?apiKey=test-key&q=witch&offset=0', {
       body: { data: gifs, pagination: {} },
     });
     const store = mockStore({
-      trendingGifs: {
+      searchGifs: {
         offset: 0,
       },
       env:  {
@@ -30,20 +30,20 @@ describe('fetchTrendingGifs', () => {
       },
     });
 
-    return store.dispatch(fetchTrendingGifs()).then(() => {
+    return store.dispatch(searchForGifs('witch')).then(() => {
       expect(fetchMock.called()).toBe(true);
       expect(store.getActions()).toEqual([
-        { type: REQUEST_TRENDING_GIFS },
-        { type: RECEIVE_TRENDING_GIFS, gifs, pagination: {} }
+        { type: REQUEST_SEARCH_GIFS, searchTerm: 'witch' },
+        { type: RECEIVE_SEARCH_GIFS, gifs, pagination: {} }
       ]);
     });
   });
 
   describe('when the request to Giphy can\'t be parsed', () => {
     it('dispatches a failure action', () => {
-      fetchMock.get('http://api.giphy.com/v1/gifs/trending?apiKey=test-key&offset=0', 420);
+      fetchMock.get('http://api.giphy.com/v1/gifs/search?apiKey=test-key&q=witch&offset=0', 420)
       const store = mockStore({
-        trendingGifs: {
+        searchGifs: {
           offset: 0,
         },
         env:  {
@@ -52,11 +52,11 @@ describe('fetchTrendingGifs', () => {
         },
       });
 
-      return store.dispatch(fetchTrendingGifs()).then(() => {
+      return store.dispatch(searchForGifs('witch')).then(() => {
         expect(fetchMock.called()).toBe(true);
         expect(store.getActions()).toEqual([
-          { type: REQUEST_TRENDING_GIFS },
-          { type: REQUEST_TRENDING_GIFS_FAILED },
+          { type: REQUEST_SEARCH_GIFS, searchTerm: 'witch' },
+          { type: REQUEST_SEARCH_GIFS_FAILED },
         ]);
       });
     });
@@ -64,12 +64,12 @@ describe('fetchTrendingGifs', () => {
 
   describe('when the request to Giphy fails', () => {
     it('dispatches a failure action', () => {
-      fetchMock.get('http://api.giphy.com/v1/gifs/trending?apiKey=test-key&offset=0', {
+      fetchMock.get('http://api.giphy.com/v1/gifs/search?apiKey=test-key&q=witch&offset=0', {
         status: 420,
         body: {},
       });
       const store = mockStore({
-        trendingGifs: {
+        searchGifs: {
           offset: 0,
         },
         env:  {
@@ -78,11 +78,11 @@ describe('fetchTrendingGifs', () => {
         },
       });
 
-      return store.dispatch(fetchTrendingGifs()).then(() => {
+      return store.dispatch(searchForGifs('witch')).then(() => {
         expect(fetchMock.called()).toBe(true);
         expect(store.getActions()).toEqual([
-          { type: REQUEST_TRENDING_GIFS },
-          { type: REQUEST_TRENDING_GIFS_FAILED },
+          { type: REQUEST_SEARCH_GIFS, searchTerm: 'witch' },
+          { type: REQUEST_SEARCH_GIFS_FAILED },
         ]);
       });
     });

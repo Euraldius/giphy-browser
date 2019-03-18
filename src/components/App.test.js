@@ -52,4 +52,43 @@ describe('<App />', () => {
       expect(wrapper).not.toContainMatchingElement('Waypoint');
     });
   });
+
+  describe('when infinite scroll is active and the user is searching for a gif', () => {
+    it('infinitely scrolls the search results', () => {
+      const searchForGifs = jest.fn();
+      const gifs = [{ id: 'test-id' }];
+      const wrapper = shallow(
+        <App
+          fetchTrendingGifs={() => {}}
+          gifs={gifs}
+          searchForGifs={searchForGifs}
+          searchTerm={'witch'}
+          searching={true}
+        />
+      );
+      const waypoint = wrapper.find('Waypoint');
+      const onEnter = waypoint.prop('onEnter');
+
+      onEnter();
+
+      expect(searchForGifs.mock.calls[0][0]).toEqual('witch');
+    });
+  });
+
+  describe('when infinite scroll is active and the user is not searching for a gif', () => {
+    it('infinitely scrolls trending gifs', () => {
+      const fetchTrendingGifs = jest.fn();
+      const gifs = [{ id: 'test-id' }];
+      const wrapper = shallow(
+        <App
+          fetchTrendingGifs={fetchTrendingGifs}
+          gifs={gifs}
+          searching={false}
+        />
+      );
+      const waypoint = wrapper.find('Waypoint');
+
+      expect(waypoint).toHaveProp('onEnter', fetchTrendingGifs);
+    });
+  });
 });
