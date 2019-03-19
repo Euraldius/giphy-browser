@@ -27,9 +27,10 @@ const receiveSearchGifs = ({ data, pagination }) => {
 
 export const searchForGifs = searchTerm => (dispatch, getState) => {
   const state = getState();
+  const encodedSearchTerm = encodeURI(searchTerm);
   const { env: { giphyApiHost, giphyApiKey } } = state;
   const { searchGifs: { offset } } = state;
-  const searchURL = `${giphyApiHost}/v1/gifs/search?apiKey=${giphyApiKey}&q=${searchTerm}&offset=${offset}`;
+  const searchURL = `${giphyApiHost}/v1/gifs/search?apiKey=${giphyApiKey}&q=${encodedSearchTerm}&offset=${offset}`;
 
   dispatch(requestSearchGifs(searchTerm));
 

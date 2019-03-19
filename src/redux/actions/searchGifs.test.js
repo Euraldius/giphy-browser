@@ -17,7 +17,7 @@ describe('searchForGifs', () => {
 
   it('searches for trending gifs', () => {
     const gifs = [{ type: 'gif', id: 'test-id', url: 'http://giphy.com/test-id' }];
-    fetchMock.get('http://api.giphy.com/v1/gifs/search?apiKey=test-key&q=witch&offset=0', {
+    fetchMock.get('http://api.giphy.com/v1/gifs/search?apiKey=test-key&q=black%20cats&offset=0', {
       body: { data: gifs, pagination: {} },
     });
     const store = mockStore({
@@ -30,10 +30,10 @@ describe('searchForGifs', () => {
       },
     });
 
-    return store.dispatch(searchForGifs('witch')).then(() => {
+    return store.dispatch(searchForGifs('black cats')).then(() => {
       expect(fetchMock.called()).toBe(true);
       expect(store.getActions()).toEqual([
-        { type: REQUEST_SEARCH_GIFS, searchTerm: 'witch' },
+        { type: REQUEST_SEARCH_GIFS, searchTerm: 'black cats' },
         { type: RECEIVE_SEARCH_GIFS, gifs, pagination: {} }
       ]);
     });
