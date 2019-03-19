@@ -9,12 +9,12 @@ const testGifs = (title, offset) => {
   const gif = {
     title,
     images: {
-      fixed_height: { url: 'http://localhost:3002/black-cat-small.gif' },
+      fixed_width: { url: 'http://localhost:3002/black-cat-small.gif' },
       original: { url: 'http://localhost:3002/black-cat.gif' },
     },
   };
 
-  for(let i = 0; i < 60; i++) {
+  for(let i = 0; i < 200; i++) {
     const newGif = cloneDeep(gif);
     const id = `test-id-${offset + i}`;
 

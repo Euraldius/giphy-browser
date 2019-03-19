@@ -20,7 +20,7 @@ class Gif extends Component {
     const { showFullGif } = this.state;
     const { gif } = this.props;
     const { images, title } = gif;
-    const { fixed_height, original } = images;
+    const { fixed_width, original } = images;
 
     return (
       <>
@@ -30,7 +30,7 @@ class Gif extends Component {
             <img src={original.url} alt={title} />
           </div>
         ): null}
-        <img className="fixed-size-gif" onClick={this.toggleFullSize} src={fixed_height.url} alt={title} />
+        <img className="fixed-size-gif" onClick={this.toggleFullSize} src={fixed_width.url} alt={title} />
       </>
     );
   }

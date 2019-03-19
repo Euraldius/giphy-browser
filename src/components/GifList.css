@@ -1,0 +1,13 @@
+.gifs {
+  -moz-column-width: 200px;
+  -webkit-column-width: 200px;
+  column-width: 200px;
+  list-style: none;
+  padding-left: 50px;
+  padding-right: 50px;
+  text-align: center;
+}
+
+.gif {
+  padding-bottom: 10px;
+}

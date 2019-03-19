@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Waypoint } from 'react-waypoint';
 import './App.css';
-import Gif from './Gif';
+import GifList from './GifList';
 import Search from './Search';
 
 class App extends Component {
@@ -31,9 +31,7 @@ class App extends Component {
           <h1>Trending gifs!</h1>
           <Search onSubmit={searchForGifs} />
         </header>
-        <ul className="gifs">
-          {gifs.map(gif => <li className="gif" key={gif.id}><Gif gif={gif} /></li>)}
-        </ul>
+        <GifList gifs={gifs} />
         { this.enableInfiniteScroll() ? <Waypoint key={gifs.length} onEnter={this.loadMoreGifs()} /> : null }
       </div>
     );

@@ -8,8 +8,8 @@ describe('<Gif />', () => {
       const gif = {
         title: 'Test gif',
         images: {
-          fixed_height: {
-            url: 'http://image.test/fixed_height',
+          fixed_width: {
+            url: 'http://image.test/fixed_width',
           },
           original: {
             url: 'http://image.test/full_size',
@@ -19,7 +19,7 @@ describe('<Gif />', () => {
       const wrapper = shallow(<Gif gif={gif} />);
 
       const image = wrapper.find('img');
-      expect(image).toHaveProp('src', 'http://image.test/fixed_height')
+      expect(image).toHaveProp('src', 'http://image.test/fixed_width')
 
       image.simulate('click');
 
@@ -33,8 +33,8 @@ describe('<Gif />', () => {
       const gif = {
         title: 'Test gif',
         images: {
-          fixed_height: {
-            url: 'http://image.test/fixed_height',
+          fixed_width: {
+            url: 'http://image.test/fixed_width',
           },
           original: {
             url: 'http://image.test/full_size',

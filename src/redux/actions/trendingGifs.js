@@ -28,7 +28,7 @@ export const fetchTrendingGifs = () => (dispatch, getState) => {
   const state = getState();
   const { env: { giphyApiHost, giphyApiKey } } = state;
   const { trendingGifs: { offset } } = state;
-  const trendingGifsURL = `${giphyApiHost}/v1/gifs/trending?apiKey=${giphyApiKey}&offset=${offset}`;
+  const trendingGifsURL = `${giphyApiHost}/v1/gifs/trending?apiKey=${giphyApiKey}&offset=${offset}&limit=100`;
 
   dispatch(requestTrendingGifs());
 
