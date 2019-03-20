@@ -117,4 +117,25 @@ describe('<App />', () => {
       expect(wrapper).not.toContainMatchingElement('.search-results');
     });
   });
+
+  describe('when a search returns with no results', () => {
+    it('prompts the user to search again', () => {
+      const wrapper = shallow(
+        <App
+          fetchTrendingGifs={() => {}}
+          gifs={[]}
+          searchResultTotal={0}
+          searchTerm="good governance"
+          searching={true}
+        />
+      );
+      const header = wrapper.find('header');
+
+      expect(wrapper).toIncludeText(
+        'Your search for "good governance" returned no results.'
+      );
+      expect(header).not.toContainMatchingElement('Search');
+      expect(wrapper).toContainMatchingElement('Search');
+    });
+  });
 });

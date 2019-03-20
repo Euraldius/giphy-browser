@@ -35,12 +35,20 @@ app.get('/v1/gifs/trending', (req, res) => {
 });
 
 app.get('/v1/gifs/search', (req, res) => {
-  const offset = req.query.offset || 0;
-  const gifTitle = req.query.q === 'black cats' ? 'Purrr' : 'You found me!';
-  const gifs = testGifs(gifTitle, offset);
+  if (req.query.q === 'no results') {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.send(JSON.stringify({
+      data: [],
+      pagination: { offset: 0, content: 0, total_count: 0 },
+    }));
+  } else {
+    const offset = req.query.offset || 0;
+    const gifTitle = req.query.q === 'black cats' ? 'Purrr' : 'You found me!';
+    const gifs = testGifs(gifTitle, offset);
 
-  res.header("Access-Control-Allow-Origin", "*");
-  res.send(JSON.stringify({ data: gifs, pagination: { offset, content: 60, total_count: 120 } }));
+    res.header("Access-Control-Allow-Origin", "*");
+    res.send(JSON.stringify({ data: gifs, pagination: { offset, content: 60, total_count: 120 } }));
+  }
 });
 
 app.use(express.static('tests/support/test_images'));

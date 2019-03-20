@@ -21,6 +21,12 @@ class App extends Component {
     return searching ? () => searchForGifs(searchTerm) : fetchTrendingGifs;
   }
 
+  emptySearch = () => {
+    const { searching, searchResultTotal } = this.props;
+
+    return searching && searchResultTotal === 0;
+  }
+
   render() {
     const {
       error,
@@ -36,13 +42,20 @@ class App extends Component {
         <header className="gifs-header">
           { error ? <div className="error"><p>{error}</p></div> : null }
           <h1>Trending gifs!</h1>
-          <Search onSubmit={searchForGifs} />
+          { !this.emptySearch() ? <Search onSubmit={searchForGifs} /> : null }
           { searching && searchResultTotal ? (
             <p className="search-results">
               Your search for "{searchTerm}" has {searchResultTotal} results.
             </p>
           ) : null }
         </header>
+        { this.emptySearch() ? (
+          <div className="no-search-results">
+            <p>Your search for "{searchTerm}" returned no results.</p>
+            <p>Would you like to search for something else?</p>
+            <Search onSubmit={searchForGifs} />
+          </div>
+        ): null }
         <GifList gifs={gifs} />
         { this.enableInfiniteScroll() ? (
           <Waypoint key={gifs.length} onEnter={this.loadMoreGifs()} />
