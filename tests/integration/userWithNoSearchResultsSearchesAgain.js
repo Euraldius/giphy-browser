@@ -16,4 +16,6 @@ this.userWithNoSearchResultsSearchesAgain = function (browser) {
 
   browser.expect.element('.gif:first-of-type > img')
     .to.have.attribute('alt').equals('You found me!');
+
+  browser.end();
 };

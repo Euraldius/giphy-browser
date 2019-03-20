@@ -41,7 +41,8 @@ class App extends Component {
       <div>
         <header className="gifs-header">
           { error ? <div className="error"><p>{error}</p></div> : null }
-          <h1>Trending gifs!</h1>
+          <h1>trending gifs</h1>
+          <p className="powered-by">[powered by Giphy]</p>
           { !this.emptySearch() ? <Search onSubmit={searchForGifs} /> : null }
           { searching && searchResultTotal ? (
             <p className="search-results">
