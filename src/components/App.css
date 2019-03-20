@@ -32,3 +32,8 @@ body {
   margin-left: 10px;
   margin-top: 5px;
 }
+
+.header-search {
+  margin-bottom: 20px;
+  text-align: center;
+}

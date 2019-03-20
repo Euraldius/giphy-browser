@@ -1,0 +1,30 @@
+.search {
+  color: #16fc26;
+  font-family: 'Courier New';
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 12px;
+  margin-top: 12px;
+}
+
+.search input, .search button {
+  background-color: #535353;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.search input[type="text"] {
+  height: 30px;
+  margin-right: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+  vertical-align: top;
+  width: 60%;
+}
+
+.search button {
+  background-color: #535353;
+  height: 36px;
+}

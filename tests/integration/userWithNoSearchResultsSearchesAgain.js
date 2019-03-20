@@ -5,14 +5,14 @@ this.userWithNoSearchResultsSearchesAgain = function (browser) {
 
   browser
     .setValue('.search > input[type="text"]', 'no results')
-    .click('.search > input[type="submit"]')
+    .click('.search > button')
     .expect.element('.no-search-results').text.to.contain(
       'Your search for "no results" returned no results.',
     );
 
   browser
     .setValue('.search > input[type="text"]', 'witch')
-    .click('.search > input[type="submit"]')
+    .click('.search > button')
 
   browser.expect.element('.gif:first-of-type > img')
     .to.have.attribute('alt').equals('You found me!');

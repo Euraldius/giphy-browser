@@ -5,7 +5,7 @@ this.userSearchesForGifs = function (browser) {
 
   browser
     .setValue('.search > input[type="text"]', 'witch')
-    .click('.search > input[type="submit"]')
+    .click('.search > button')
     .getText('.search-results', result => {
       browser.assert.equal(result.value, 'Your search for "witch" has 120 results.');
     })

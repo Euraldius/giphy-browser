@@ -12,7 +12,7 @@ this.homePageInfinitelyScrollsSearchedGifs = function (browser) {
 
   browser
   .setValue('.search > input[type="text"]', 'witch')
-  .click('.search > input[type="submit"]')
+  .click('.search > button')
 
   browser.elements('css selector', '.gif > img[alt="You found me!"]',
     result => {

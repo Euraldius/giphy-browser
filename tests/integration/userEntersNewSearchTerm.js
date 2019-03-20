@@ -5,7 +5,7 @@ this.userEntersNewSearchTerm = function (browser) {
 
   browser
   .setValue('.search > input[type="text"]', 'witch')
-  .click('.search > input[type="submit"]')
+  .click('.search > button')
   .getAttribute('.gif:first-of-type > img', 'alt', result => {
     browser.assert.equal(result.value, 'You found me!');
   });
@@ -13,7 +13,7 @@ this.userEntersNewSearchTerm = function (browser) {
   browser
   .clearValue('.search > input[type="text"]')
   .setValue('.search > input[type="text"]', 'black cats')
-  .click('.search > input[type="submit"]')
+  .click('.search > button')
   .getAttribute('.gif:first-of-type > img', 'alt', result => {
     browser.assert.equal(result.value, 'Purrr');
   });

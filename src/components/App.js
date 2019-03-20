@@ -43,7 +43,11 @@ class App extends Component {
           { error ? <div className="error"><p>{error}</p></div> : null }
           <h1>trending gifs</h1>
           <p className="powered-by">[powered by Giphy]</p>
-          { !this.emptySearch() ? <Search onSubmit={searchForGifs} /> : null }
+          { !this.emptySearch() ? (
+            <div className="header-search">
+              <Search onSubmit={searchForGifs} />
+            </div>
+          ): null }
           { searching && searchResultTotal ? (
             <p className="search-results">
               Your search for "{searchTerm}" has {searchResultTotal} results.
