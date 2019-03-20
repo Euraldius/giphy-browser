@@ -91,4 +91,30 @@ describe('<App />', () => {
       expect(waypoint).toHaveProp('onEnter', fetchTrendingGifs);
     });
   });
+
+  describe('when the user has performed a search', () => {
+    it('displays a search result status', () => {
+      const wrapper = shallow(
+        <App
+          fetchTrendingGifs={() => {}}
+          gifs={[]}
+          searchResultTotal={120}
+          searchTerm="witch"
+          searching={true}
+        />
+      );
+
+      expect(wrapper).toIncludeText('Your search for "witch" has 120 results');
+    });
+  });
+
+  describe('when the user is not searching', () => {
+    it('does not display a search status', () => {
+      const wrapper = shallow(
+        <App fetchTrendingGifs={() => {}} gifs={[]} searching={false} />
+      );
+
+      expect(wrapper).not.toContainMatchingElement('.search-results');
+    });
+  });
 });

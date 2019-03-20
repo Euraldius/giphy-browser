@@ -17,7 +17,7 @@ describe('fetchTrendingGifs', () => {
 
   it('fetches trending gifs', () => {
     const gifs = [{ type: 'gif', id: 'test-id', url: 'http://giphy.com/test-id' }];
-    fetchMock.get('http://api.giphy.com/v1/gifs/trending?apiKey=test-key&offset=0', {
+    fetchMock.get('http://api.giphy.com/v1/gifs/trending?apiKey=test-key&offset=0&limit=100', {
       body: { data: gifs, pagination: {} },
     });
     const store = mockStore({
@@ -41,7 +41,7 @@ describe('fetchTrendingGifs', () => {
 
   describe('when the request to Giphy can\'t be parsed', () => {
     it('dispatches a failure action', () => {
-      fetchMock.get('http://api.giphy.com/v1/gifs/trending?apiKey=test-key&offset=0', 420);
+      fetchMock.get('http://api.giphy.com/v1/gifs/trending?apiKey=test-key&offset=0&limit=100', 420);
       const store = mockStore({
         trendingGifs: {
           offset: 0,
@@ -64,7 +64,7 @@ describe('fetchTrendingGifs', () => {
 
   describe('when the request to Giphy fails', () => {
     it('dispatches a failure action', () => {
-      fetchMock.get('http://api.giphy.com/v1/gifs/trending?apiKey=test-key&offset=0', {
+      fetchMock.get('http://api.giphy.com/v1/gifs/trending?apiKey=test-key&offset=0&limit=100', {
         status: 420,
         body: {},
       });

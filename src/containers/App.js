@@ -12,11 +12,12 @@ const error = ({ trendingGifs, searchGifs }) => (searchGifs.error || trendingGif
 const isFetching = ({ trendingGifs, searchGifs }) => (searchGifs.isFetching || trendingGifs.isFetching);
 
 export const mapStateToProps = state => ({
-  gifs: gifs(state),
   error: error(state),
+  gifs: gifs(state),
   isFetching: isFetching(state),
-  searching: state.searchGifs.active,
+  searchResultTotal: state.searchGifs.resultTotal,
   searchTerm: state.searchGifs.searchTerm,
+  searching: state.searchGifs.active,
 });
 
 const { fetchTrendingGifs, searchForGifs } = actions;

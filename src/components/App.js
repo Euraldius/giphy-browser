@@ -22,7 +22,14 @@ class App extends Component {
   }
 
   render() {
-    const { error, gifs, searchForGifs } = this.props;
+    const {
+      error,
+      gifs,
+      searchForGifs,
+      searchResultTotal,
+      searchTerm,
+      searching,
+    } = this.props;
 
     return (
       <div>
@@ -30,9 +37,16 @@ class App extends Component {
           { error ? <div className="error"><p>{error}</p></div> : null }
           <h1>Trending gifs!</h1>
           <Search onSubmit={searchForGifs} />
+          { searching && searchResultTotal ? (
+            <p className="search-results">
+              Your search for "{searchTerm}" has {searchResultTotal} results.
+            </p>
+          ) : null }
         </header>
         <GifList gifs={gifs} />
-        { this.enableInfiniteScroll() ? <Waypoint key={gifs.length} onEnter={this.loadMoreGifs()} /> : null }
+        { this.enableInfiniteScroll() ? (
+          <Waypoint key={gifs.length} onEnter={this.loadMoreGifs()} />
+        ) : null }
       </div>
     );
   }

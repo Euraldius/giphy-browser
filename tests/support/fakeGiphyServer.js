@@ -40,7 +40,7 @@ app.get('/v1/gifs/search', (req, res) => {
   const gifs = testGifs(gifTitle, offset);
 
   res.header("Access-Control-Allow-Origin", "*");
-  res.send(JSON.stringify({ data: gifs, pagination: { offset, content: 60 } }));
+  res.send(JSON.stringify({ data: gifs, pagination: { offset, content: 60, total_count: 120 } }));
 });
 
 app.use(express.static('tests/support/test_images'));
