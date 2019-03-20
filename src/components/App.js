@@ -41,7 +41,7 @@ class App extends Component {
       <div>
         <header className="gifs-header">
           { error ? <div className="error"><p>{error}</p></div> : null }
-          <h1>trending gifs</h1>
+          <h1>{ searching ? 'search results' : 'trending gifs' }</h1>
           <p className="powered-by">[powered by Giphy]</p>
           { !this.emptySearch() ? (
             <div className="header-search">

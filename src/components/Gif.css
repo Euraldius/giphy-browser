@@ -14,17 +14,24 @@
 }
 
 .close-full-size {
-  background: none;
-  border: none;
-  color: pink;
-  font-size: 4rem;
-  margin-left: 90%;
-  margin-top: 2%;
-  position: absolute;
+  position: fixed;
+  width: 100%;
 }
 
-.close-full-size:hover {
-  color: red;
+.close-full-size button {
+  background: none;
+  border: none;
+  color: inherit;
+  float: right;
+  font-family: inherit;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-right: 50px;
+  margin-top: 20px;
+}
+
+.close-full-size button:hover {
+  color: #a1a1a1;
   cursor: pointer;
 }
 

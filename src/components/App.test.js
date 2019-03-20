@@ -103,7 +103,9 @@ describe('<App />', () => {
           searching={true}
         />
       );
+      const header = wrapper.find('header h1');
 
+      expect(header).toIncludeText('search results');
       expect(wrapper).toIncludeText('Your search for "witch" has 120 results');
     });
   });
@@ -113,7 +115,9 @@ describe('<App />', () => {
       const wrapper = shallow(
         <App fetchTrendingGifs={() => {}} gifs={[]} searching={false} />
       );
+      const header = wrapper.find('header h1');
 
+      expect(header).toIncludeText('trending gifs');
       expect(wrapper).not.toContainMatchingElement('.search-results');
     });
   });

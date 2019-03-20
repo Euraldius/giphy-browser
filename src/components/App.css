@@ -8,6 +8,7 @@
 
 body {
   background-color: #535353;
+  color: #16fc26;
   font-family: 'Courier New';
 }
 
@@ -18,7 +19,6 @@ body {
 }
 
 .gifs-header h1 {
-  color: #16fc26;
   font-family: 'Bitwise';
   font-size: 40px;
   padding-top: 20px;
@@ -31,9 +31,32 @@ body {
   color: #a1a1a1;
   margin-left: 10px;
   margin-top: 5px;
+  margin-bottom: 40px;
 }
 
 .header-search {
   margin-bottom: 20px;
   text-align: center;
+}
+
+.search-results {
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+}
+
+.no-search-results {
+  font-weight: bold;
+  text-align: center;
+}
+
+.no-search-results .search {
+  margin-top: 40px;
+}
+
+.no-search-results .search input,
+.no-search-results .search button,
+.no-search-results .search button svg
+{
+  background-color: #353535;
 }
