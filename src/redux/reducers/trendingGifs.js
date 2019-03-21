@@ -19,7 +19,7 @@ const trendingGifsReducers = (state = trendingGifsInitialState, action) => {
       return {
         ...state,
         gifs: state.gifs.concat(action.gifs),
-        offset: offset + count + 1,
+        offset: offset + count,
         isFetching: false,
         error: null,
       };

@@ -7,7 +7,7 @@ this.userSearchesForGifs = function (browser) {
     .setValue('.search > input[type="text"]', 'witch')
     .click('.search > button')
     .getText('.search-results', result => {
-      browser.assert.equal(result.value, 'Your search for "witch" has 200 results.');
+      browser.assert.equal(result.value, 'Your search for "witch" has 1000 results.');
     })
     .getAttribute('.gif-column:first-of-type > .gif-wrapper:first-of-type > img', 'alt', result => {
       browser.assert.equal(result.value, 'You found me!');

@@ -3,12 +3,13 @@ import { mapStateToProps } from './App';
 describe('mapStateToProps', () => {
   describe('when there is an active search', () => {
     it('selects the searched gifs for display', () => {
-      const searchGifs = jest.fn();
-      const trendingGifs = jest.fn();
+      const searchGifs = [{ id: 'search' }];
+      const trendingGifs = [{ id: 'trending' }];
       const state = {
         searchGifs: {
           active: true,
           gifs: searchGifs,
+          resultTotal: 2,
         },
         trendingGifs: {
           gifs: trendingGifs,
@@ -16,7 +17,29 @@ describe('mapStateToProps', () => {
       };
       const props = mapStateToProps(state);
 
-      expect(props.gifs).toBe(searchGifs);
+      expect(props.gifs).toEqual(searchGifs);
+      expect(props.allGifsLoaded).toBe(false);
+    });
+
+    describe('and all gifs have been loaded', () => {
+      it('marks that all gifs have been loaded', () => {
+        const searchGifs = [{ id: 'search' }];
+        const trendingGifs = [{ id: 'trending' }];
+        const state = {
+          searchGifs: {
+            active: true,
+            gifs: searchGifs,
+            resultTotal: 1,
+          },
+          trendingGifs: {
+            gifs: trendingGifs,
+          },
+        };
+        const props = mapStateToProps(state);
+
+        expect(props.gifs).toEqual(searchGifs);
+        expect(props.allGifsLoaded).toBe(true);
+      });
     });
   });
 
@@ -36,6 +59,7 @@ describe('mapStateToProps', () => {
       const props = mapStateToProps(state);
 
       expect(props.gifs).toBe(trendingGifs);
+      expect(props.allGifsLoaded).toBe(false);
     });
   });
 
@@ -124,11 +148,12 @@ describe('mapStateToProps', () => {
       const state = {
         searchGifs: {
           active: true,
+          gifs: [],
           isFetching: true,
           isNewSearch: true,
         },
         trendingGifs: {},
-      }
+      };
       const props = mapStateToProps(state);
 
       expect(props.gifListRefreshing).toBe(true);

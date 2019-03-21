@@ -10,9 +10,9 @@ class App extends Component {
   }
 
   enableInfiniteScroll = () => {
-    const { gifs, isFetching } = this.props;
+    const { gifs, isFetching, allGifsLoaded } = this.props;
 
-    return gifs.length > 0 && !isFetching;
+    return gifs.length > 0 && !isFetching && !allGifsLoaded;
   }
 
   loadMoreGifs = () => {

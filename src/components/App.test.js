@@ -63,6 +63,21 @@ describe('<App />', () => {
     });
   });
 
+  describe('when all gifs have been loaded already', () => {
+    it('does not enable infinite scroll', () => {
+      const wrapper = shallow(
+        <App
+          allGifsLoaded={true}
+          fetchTrendingGifs={() => {}}
+          gifs={[{ id: 'gif' }]}
+          isFetching={false}
+        />
+      );
+
+      expect(wrapper).not.toContainMatchingElement('Waypoint');
+    });
+  });
+
   describe('when infinite scroll is active and the user is searching for a gif', () => {
     it('infinitely scrolls the search results', () => {
       const searchForGifs = jest.fn();

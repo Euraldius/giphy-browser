@@ -26,7 +26,7 @@ const searchGifsReducers = (state = searchGifsInitialState, action) => {
         error: null,
         gifs: existingGifs.concat(action.gifs),
         isFetching: false,
-        offset: offset + count + 1,
+        offset: offset + count,
         resultTotal: total_count,
         searchTerm,
       };

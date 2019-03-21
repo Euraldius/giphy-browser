@@ -49,7 +49,7 @@ app.get('/v1/gifs/search', (req, res) => {
 
     data = testGifs(gifTitle, offset);
     count = data.length;
-    total_count = data.length;
+    total_count = 1000; // arbitrary, increase/decrease if necessary
 
     lastSearchTerm = q;
   }

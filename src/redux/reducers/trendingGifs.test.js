@@ -22,7 +22,7 @@ describe('trendingGifsReducers', () => {
 
       expect(newState).toEqual({
         gifs: [{ id: 'test-id' }],
-        offset: 11,
+        offset: 10,
         isFetching: false,
         error: null,
       });

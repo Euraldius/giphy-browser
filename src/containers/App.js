@@ -8,13 +8,24 @@ const gifs = state => {
   return searchGifs.active ? searchGifs.gifs : trendingGifs.gifs;
 };
 
-const error = ({ trendingGifs, searchGifs }) => (searchGifs.error || trendingGifs.error);
-const isFetching = ({ trendingGifs, searchGifs }) => (searchGifs.isFetching || trendingGifs.isFetching);
+const error = ({ trendingGifs, searchGifs }) => (
+  searchGifs.error || trendingGifs.error
+);
+
+const isFetching = ({ trendingGifs, searchGifs }) => (
+  searchGifs.isFetching || trendingGifs.isFetching
+);
+
 const gifListRefreshing = ({ searchGifs: { active, isFetching, isNewSearch } }) => (
   active && isFetching && isNewSearch
 );
 
+const allGifsLoaded = ({ searchGifs }) => (
+  searchGifs.active && searchGifs.resultTotal === searchGifs.gifs.length
+);
+
 export const mapStateToProps = state => ({
+  allGifsLoaded: allGifsLoaded(state),
   error: error(state),
   gifListRefreshing: gifListRefreshing(state),
   gifs: gifs(state),
