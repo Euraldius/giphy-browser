@@ -1,14 +1,16 @@
 import {
   RECEIVE_TRENDING_GIFS,
+  REFRESH_TRENDING_GIFS,
   REQUEST_TRENDING_GIFS,
   REQUEST_TRENDING_GIFS_FAILED,
 } from '../actionTypes';
 
 const trendingGifsInitialState = {
+  error: null,
   gifs: [],
   isFetching: false,
   offset: 0,
-  error: null,
+  refreshing: false,
 };
 
 const trendingGifsReducers = (state = trendingGifsInitialState, action) => {
@@ -18,10 +20,11 @@ const trendingGifsReducers = (state = trendingGifsInitialState, action) => {
 
       return {
         ...state,
-        gifs: state.gifs.concat(action.gifs),
-        offset: offset + count,
-        isFetching: false,
         error: null,
+        gifs: state.gifs.concat(action.gifs),
+        isFetching: false,
+        offset: offset + count,
+        refreshing: false,
       };
     }
     case REQUEST_TRENDING_GIFS: {
@@ -36,6 +39,13 @@ const trendingGifsReducers = (state = trendingGifsInitialState, action) => {
         ...state,
         isFetching: false,
         error: 'There was an error fetching gifs. If you really really need them, try reloading the page.',
+      };
+    }
+    case REFRESH_TRENDING_GIFS: {
+      return {
+        ...state,
+        gifs: [],
+        refreshing: true,
       };
     }
     default:

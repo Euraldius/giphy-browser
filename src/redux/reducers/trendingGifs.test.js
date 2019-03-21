@@ -1,6 +1,7 @@
 import trendingGifsReducers from './trendingGifs';
 import {
   RECEIVE_TRENDING_GIFS,
+  REFRESH_TRENDING_GIFS,
   REQUEST_TRENDING_GIFS,
   REQUEST_TRENDING_GIFS_FAILED,
 } from '../actionTypes';
@@ -21,10 +22,11 @@ describe('trendingGifsReducers', () => {
       const newState = trendingGifsReducers(state, action);
 
       expect(newState).toEqual({
-        gifs: [{ id: 'test-id' }],
-        offset: 10,
-        isFetching: false,
         error: null,
+        gifs: [{ id: 'test-id' }],
+        isFetching: false,
+        offset: 10,
+        refreshing: false,
       });
     });
   });
@@ -55,6 +57,20 @@ describe('trendingGifsReducers', () => {
         gifs: [],
         isFetching: true,
         error: null,
+      });
+    });
+  });
+
+  describe('REFRESH_TRENDING_GIFS', () => {
+    it('resets the trending gifs', () => {
+      const state = { gifs: [{ id: 'trending' }], refreshing: false };
+      const action = { type: REFRESH_TRENDING_GIFS };
+
+      const newState = trendingGifsReducers(state, action);
+
+      expect(newState).toEqual({
+        gifs: [],
+        refreshing: true,
       });
     });
   });

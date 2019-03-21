@@ -16,8 +16,11 @@ const isFetching = ({ trendingGifs, searchGifs }) => (
   searchGifs.isFetching || trendingGifs.isFetching
 );
 
-const gifListRefreshing = ({ searchGifs: { active, isFetching, isNewSearch } }) => (
-  active && isFetching && isNewSearch
+const gifListRefreshing = ({
+  searchGifs: { active, isFetching, isNewSearch },
+  trendingGifs: { refreshing },
+}) => (
+  (active && isFetching && isNewSearch) || refreshing
 );
 
 const allGifsLoaded = ({ searchGifs }) => (
@@ -35,7 +38,11 @@ export const mapStateToProps = state => ({
   searching: state.searchGifs.active,
 });
 
-const { fetchTrendingGifs, searchForGifs } = actions;
-const mapDispatchToProps = { fetchTrendingGifs, searchForGifs };
+const { fetchTrendingGifs, searchForGifs, showTrendingGifs } = actions;
+const mapDispatchToProps = {
+  fetchTrendingGifs,
+  searchForGifs,
+  showTrendingGifs,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

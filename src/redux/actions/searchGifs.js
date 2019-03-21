@@ -1,4 +1,5 @@
 import {
+  CLEAR_SEARCH_GIFS,
   REQUEST_SEARCH_GIFS,
   REQUEST_SEARCH_GIFS_FAILED,
   RECEIVE_SEARCH_GIFS,
@@ -23,6 +24,12 @@ const receiveSearchGifs = ({ data, pagination }, searchTerm) => {
     gifs: data,
     pagination,
     searchTerm,
+  };
+};
+
+export const clearSearchGifs = () => {
+  return {
+    type: CLEAR_SEARCH_GIFS,
   };
 };
 

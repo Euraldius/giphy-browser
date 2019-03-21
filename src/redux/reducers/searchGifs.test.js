@@ -1,11 +1,30 @@
 import searchGifsReducers from './searchGifs';
 import {
+  CLEAR_SEARCH_GIFS,
   RECEIVE_SEARCH_GIFS,
   REQUEST_SEARCH_GIFS,
   REQUEST_SEARCH_GIFS_FAILED,
 } from '../actionTypes';
 
 describe('searchGifsReducers', () => {
+  describe('CLEAR_SEARCH_GIFS', () => {
+    it('resets the search gifs state to default', () => {
+      const newState = searchGifsReducers({}, {
+        type: CLEAR_SEARCH_GIFS,
+      });
+
+      expect(newState).toEqual({
+        active: false,
+        error: null,
+        gifs: [],
+        isFetching: false,
+        isNewSearch: true,
+        offset: 0,
+        searchTerm: '',
+      });
+    });
+  });
+
   describe('RECEIVE_SEARCH_GIFS', () => {
     it('adds newly received gifs and updates the offset', () => {
       const state = { gifs: [] };

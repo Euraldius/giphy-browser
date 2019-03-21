@@ -159,4 +159,18 @@ describe('mapStateToProps', () => {
       expect(props.gifListRefreshing).toBe(true);
     });
   });
+
+  describe('when the trending gifs are being refreshed', () => {
+    it('marks the gif list as refreshing', () => {
+      const state = {
+        searchGifs: {},
+        trendingGifs: {
+          refreshing: true
+        },
+      };
+      const props = mapStateToProps(state);
+
+      expect(props.gifListRefreshing).toBe(true);
+    });
+  });
 });

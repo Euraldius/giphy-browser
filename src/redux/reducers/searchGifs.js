@@ -1,4 +1,5 @@
 import {
+  CLEAR_SEARCH_GIFS,
   RECEIVE_SEARCH_GIFS,
   REQUEST_SEARCH_GIFS,
   REQUEST_SEARCH_GIFS_FAILED,
@@ -48,6 +49,9 @@ const searchGifsReducers = (state = searchGifsInitialState, action) => {
         isFetching: false,
         error: 'There was an error fetching gifs. If you really really need them, try reloading the page.',
       };
+    }
+    case CLEAR_SEARCH_GIFS: {
+      return searchGifsInitialState;
     }
     default:
       return state;

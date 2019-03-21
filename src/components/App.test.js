@@ -20,23 +20,6 @@ describe('<App />', () => {
     });
   });
 
-  describe('when there is no error', () => {
-    it('does not show the error element', () => {
-      const wrapper = shallow(<App gifs={[]} fetchTrendingGifs={() => {}} />);
-
-      expect(wrapper).not.toContainMatchingElement('.error');
-    });
-  });
-
-  describe('when there is an error', () => {
-    it('shows the error element', () => {
-      const wrapper = shallow(<App error="There is an error" gifs={[]} fetchTrendingGifs={() => {}} />);
-      const error = wrapper.find('.error');
-
-      expect(error).toHaveText('There is an error');
-    });
-  });
-
   describe('when there are gifs and there is no active request', () => {
     it('renders an infinite scroll waypoint', () => {
       const gifs = [{ id: 'test-id' }];
@@ -114,36 +97,6 @@ describe('<App />', () => {
       const waypoint = wrapper.find('Waypoint');
 
       expect(waypoint).toHaveProp('onEnter', fetchTrendingGifs);
-    });
-  });
-
-  describe('when the user has performed a search', () => {
-    it('displays a search result status', () => {
-      const wrapper = shallow(
-        <App
-          fetchTrendingGifs={() => {}}
-          gifs={[]}
-          searchResultTotal={120}
-          searchTerm="witch"
-          searching={true}
-        />
-      );
-      const header = wrapper.find('header h1');
-
-      expect(header).toIncludeText('search results');
-      expect(wrapper).toIncludeText('Your search for "witch" has 120 results');
-    });
-  });
-
-  describe('when the user is not searching', () => {
-    it('does not display a search status', () => {
-      const wrapper = shallow(
-        <App fetchTrendingGifs={() => {}} gifs={[]} searching={false} />
-      );
-      const header = wrapper.find('header h1');
-
-      expect(header).toIncludeText('trending gifs');
-      expect(wrapper).not.toContainMatchingElement('.search-results');
     });
   });
 

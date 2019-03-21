@@ -1,5 +1,7 @@
+import { clearSearchGifs } from './searchGifs';
 import {
   RECEIVE_TRENDING_GIFS,
+  REFRESH_TRENDING_GIFS,
   REQUEST_TRENDING_GIFS,
   REQUEST_TRENDING_GIFS_FAILED,
 } from '../actionTypes';
@@ -24,6 +26,12 @@ const receiveTrendingGifs = ({ data, pagination }) => {
   };
 };
 
+const refreshTrendingGifs = () => {
+  return {
+    type: REFRESH_TRENDING_GIFS,
+  };
+};
+
 export const fetchTrendingGifs = () => (dispatch, getState) => {
   const state = getState();
   const { env: { giphyApiHost, giphyApiKey } } = state;
@@ -44,4 +52,11 @@ export const fetchTrendingGifs = () => (dispatch, getState) => {
       },
       () => dispatch(requestTrendingGifsFailed()),
     );
+};
+
+export const showTrendingGifs = () => (dispatch, getState) => {
+  dispatch(clearSearchGifs());
+  dispatch(refreshTrendingGifs());
+
+  return fetchTrendingGifs()(dispatch, getState);
 };
