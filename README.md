@@ -24,7 +24,20 @@ git clone git@github.com:Euraldius/giphy-browser.git
 npm install
 ```
 
-### 3. Start server
+### 3. Set up environment
+
+In the project root, create a file named `.env.local` with the following values:
+
+```
+# .env.local
+
+REACT_APP_GIPHY_API_HOST="https://api.giphy.com"
+REACT_APP_GIPHY_API_KEY=MY_API_KEY
+```
+
+You will need to add your own Giphy API key. You can create a Giphy developer account and get an API key at https://developers.giphy.com/
+
+### 4. Start server
 
 ```
 npm start
