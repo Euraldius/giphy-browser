@@ -32,6 +32,7 @@ class Search extends Component {
     return (
       <form className="search" onSubmit={this.onSubmit}>
       <input
+        ariaLabel="Search for gifs"
         placeholder="SEARCH FOR GIFS"
         onChange={this.setValue}
         type="text"
