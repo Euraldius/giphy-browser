@@ -6,17 +6,15 @@ this.userEntersNewSearchTerm = function (browser) {
   browser
   .setValue('.search > input[type="text"]', 'witch')
   .click('.search > button')
-  .getAttribute('.gif-column:first-of-type > .gif-wrapper:first-of-type > img', 'alt', result => {
-    browser.assert.equal(result.value, 'You found me!');
-  });
+  .expect.element('.gif-column:first-of-type > .gif-wrapper:first-of-type > img')
+  .to.have.attribute('alt').equals('You found me!');
 
   browser
   .clearValue('.search > input[type="text"]')
   .setValue('.search > input[type="text"]', 'black cats')
   .click('.search > button')
-  .getAttribute('.gif-column:first-of-type > .gif-wrapper:first-of-type > img', 'alt', result => {
-    browser.assert.equal(result.value, 'Purrr');
-  });
+  .expect.element('.gif-column:first-of-type > .gif-wrapper:first-of-type > img')
+  .to.have.attribute('alt').equals('Purrr');
 
   browser.end();
 }

@@ -15,7 +15,7 @@ describe('searchForGifs', () => {
     fetchMock.restore();
   });
 
-  it('searches for trending gifs', () => {
+  it('searches for gifs matching the search term', () => {
     const gifs = [{ type: 'gif', id: 'test-id', url: 'http://giphy.com/test-id' }];
     fetchMock.get('http://api.giphy.com/v1/gifs/search?apiKey=test-key&q=black%20cats&offset=0&limit=100', {
       body: { data: gifs, pagination: {} },
@@ -33,9 +33,63 @@ describe('searchForGifs', () => {
     return store.dispatch(searchForGifs('black cats')).then(() => {
       expect(fetchMock.called()).toBe(true);
       expect(store.getActions()).toEqual([
-        { type: REQUEST_SEARCH_GIFS, searchTerm: 'black cats' },
-        { type: RECEIVE_SEARCH_GIFS, gifs, pagination: {} }
+        { type: REQUEST_SEARCH_GIFS },
+        { type: RECEIVE_SEARCH_GIFS, gifs, pagination: {}, searchTerm: 'black cats' }
       ]);
+    });
+  });
+
+  describe('when there is a new search term', () => {
+    it('resets the offset', () => {
+      const gifs = [{ type: 'gif', id: 'test-id', url: 'http://giphy.com/test-id' }];
+      fetchMock.get('http://api.giphy.com/v1/gifs/search?apiKey=test-key&q=black%20cats&offset=0&limit=100', {
+        body: { data: gifs, pagination: {} },
+      });
+      const store = mockStore({
+        searchGifs: {
+          offset: 10,
+          searchTerm: 'witch',
+        },
+        env:  {
+          giphyApiHost: 'http://api.giphy.com',
+          giphyApiKey: 'test-key',
+        },
+      });
+
+      return store.dispatch(searchForGifs('black cats')).then(() => {
+        expect(fetchMock.called()).toBe(true);
+        expect(store.getActions()).toEqual([
+          { type: REQUEST_SEARCH_GIFS },
+          { type: RECEIVE_SEARCH_GIFS, gifs, pagination: {}, searchTerm: 'black cats' }
+        ]);
+      });
+    });
+  });
+
+  describe('when the search term matches the term in the state', () => {
+    it('uses the offset in the state', () => {
+      const gifs = [{ type: 'gif', id: 'test-id', url: 'http://giphy.com/test-id' }];
+      fetchMock.get('http://api.giphy.com/v1/gifs/search?apiKey=test-key&q=witch&offset=10&limit=100', {
+        body: { data: gifs, pagination: {} },
+      });
+      const store = mockStore({
+        searchGifs: {
+          offset: 10,
+          searchTerm: 'witch',
+        },
+        env:  {
+          giphyApiHost: 'http://api.giphy.com',
+          giphyApiKey: 'test-key',
+        },
+      });
+
+      return store.dispatch(searchForGifs('witch')).then(() => {
+        expect(fetchMock.called()).toBe(true);
+        expect(store.getActions()).toEqual([
+          { type: REQUEST_SEARCH_GIFS },
+          { type: RECEIVE_SEARCH_GIFS, gifs, pagination: {}, searchTerm: 'witch' }
+        ]);
+      });
     });
   });
 
@@ -55,7 +109,7 @@ describe('searchForGifs', () => {
       return store.dispatch(searchForGifs('witch')).then(() => {
         expect(fetchMock.called()).toBe(true);
         expect(store.getActions()).toEqual([
-          { type: REQUEST_SEARCH_GIFS, searchTerm: 'witch' },
+          { type: REQUEST_SEARCH_GIFS },
           { type: REQUEST_SEARCH_GIFS_FAILED },
         ]);
       });
@@ -81,7 +135,7 @@ describe('searchForGifs', () => {
       return store.dispatch(searchForGifs('witch')).then(() => {
         expect(fetchMock.called()).toBe(true);
         expect(store.getActions()).toEqual([
-          { type: REQUEST_SEARCH_GIFS, searchTerm: 'witch' },
+          { type: REQUEST_SEARCH_GIFS },
           { type: REQUEST_SEARCH_GIFS_FAILED },
         ]);
       });

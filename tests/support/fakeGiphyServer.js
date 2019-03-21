@@ -34,21 +34,30 @@ app.get('/v1/gifs/trending', (req, res) => {
   res.send(JSON.stringify({ data: gifs, pagination: { offset, content: 60 } }));
 });
 
+let lastSearchTerm;
 app.get('/v1/gifs/search', (req, res) => {
-  if (req.query.q === 'no results') {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.send(JSON.stringify({
-      data: [],
-      pagination: { offset: 0, content: 0, total_count: 0 },
-    }));
-  } else {
-    const offset = req.query.offset || 0;
-    const gifTitle = req.query.q === 'black cats' ? 'Purrr' : 'You found me!';
-    const gifs = testGifs(gifTitle, offset);
+  const { offset, q } = req.query;
+  let data = [];
+  let status = 200;
+  let count = 0;
+  let total_count = 0;
 
-    res.header("Access-Control-Allow-Origin", "*");
-    res.send(JSON.stringify({ data: gifs, pagination: { offset, content: 60, total_count: 120 } }));
+  if (q !== lastSearchTerm && offset > 0) {
+    status = 500;
+  } else if (q !== 'no results') {
+    const gifTitle = q === 'black cats' ? 'Purrr' : 'You found me!';
+
+    data = testGifs(gifTitle, offset);
+    count = data.length;
+    total_count = data.length;
+
+    lastSearchTerm = q;
   }
+
+  res.header("Access-Control-Allow-Origin", "*");
+  res.status(status).send(
+    JSON.stringify({ data, pagination: { offset, count, total_count } })
+  );
 });
 
 app.use(express.static('tests/support/test_images'));

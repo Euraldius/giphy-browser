@@ -27,6 +27,27 @@ describe('searchGifsReducers', () => {
         error: null,
       });
     });
+
+    describe('when the user is performing a new search', () => {
+      it('removes existing gifs from the state', () => {
+        const state = { searchTerm: 'witch', gifs: [{ id: 'old-gif' }] };
+        const action = {
+          type: RECEIVE_SEARCH_GIFS,
+          gifs: [{ id: 'new-gif' }],
+          pagination: {
+            offset: 8,
+            count: 2,
+          },
+          searchTerm: 'black cat',
+        };
+
+        const newState = searchGifsReducers(state, action);
+
+        expect(newState.gifs.length).toBe(1);
+        expect(newState.gifs[0].id).toEqual('new-gif');
+        expect(newState.searchTerm).toEqual('black cat');
+      });
+    });
   });
 
   describe('REQUEST_SEARCH_GIFS_FAILED', () => {
@@ -58,24 +79,6 @@ describe('searchGifsReducers', () => {
         isFetching: true,
         offset: 20,
         searchTerm: 'witch',
-      });
-    });
-
-    describe('when there is a new search term', () => {
-      it('resets the offset to 0', () => {
-        const state = { gifs: [], offset: 20, searchTerm: 'black cats' };
-        const action = { type: REQUEST_SEARCH_GIFS, searchTerm: 'witch' };
-
-        const newState = searchGifsReducers(state, action);
-
-        expect(newState).toEqual({
-          active: true,
-          error: null,
-          gifs: [],
-          isFetching: true,
-          offset: 0,
-          searchTerm: 'witch',
-        });
       });
     });
   });

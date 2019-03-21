@@ -10,29 +10,40 @@ const requestSearchGifsFailed = () => {
   };
 };
 
-const requestSearchGifs = searchTerm => {
+const requestSearchGifs = () => {
   return {
     type: REQUEST_SEARCH_GIFS,
-    searchTerm,
   };
 };
 
-const receiveSearchGifs = ({ data, pagination }) => {
+const receiveSearchGifs = ({ data, pagination }, searchTerm) => {
   return {
     type: RECEIVE_SEARCH_GIFS,
     gifs: data,
     pagination,
+    searchTerm,
   };
 };
 
-export const searchForGifs = searchTerm => (dispatch, getState) => {
+export const searchForGifs = newSearchTerm => (dispatch, getState) => {
   const state = getState();
-  const encodedSearchTerm = encodeURI(searchTerm);
-  const { env: { giphyApiHost, giphyApiKey } } = state;
-  const { searchGifs: { offset } } = state;
-  const searchURL = `${giphyApiHost}/v1/gifs/search?apiKey=${giphyApiKey}&q=${encodedSearchTerm}&offset=${offset}&limit=100`;
+  const {
+    env: { giphyApiHost, giphyApiKey },
+    searchGifs: { searchTerm },
+  } = state;
+  const encodedSearchTerm = encodeURI(newSearchTerm);
+  let { searchGifs: { offset } } = state;
 
-  dispatch(requestSearchGifs(searchTerm));
+  if (newSearchTerm !== searchTerm) {
+    offset = 0;
+  }
+
+  const searchURL = `${giphyApiHost}/v1/gifs/search?` +
+                    `apiKey=${giphyApiKey}&` +
+                    `q=${encodedSearchTerm}&` +
+                    `offset=${offset}&limit=100`;
+
+  dispatch(requestSearchGifs());
 
   return fetch(searchURL)
     .then(response => response.json().then(json => ({ status: response.status, json })))
@@ -41,7 +52,7 @@ export const searchForGifs = searchTerm => (dispatch, getState) => {
         if (status >= 400) {
           dispatch(requestSearchGifsFailed());
         } else {
-          dispatch(receiveSearchGifs(json));
+          dispatch(receiveSearchGifs(json, newSearchTerm));
         }
       },
       () => dispatch(requestSearchGifsFailed()),
