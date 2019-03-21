@@ -1,25 +1,25 @@
-function scrollToBottomOfPage () {
-  window.scrollTo(0, document.body.scrollHeight);
-}
+const scrollToBottomOfPage = require('../support/utils').scrollToBottomOfPage;
 
-this.homePageInfinitelyScrollsTrendingGifs = function (browser) {
+this.userInfinitelyScrollsSearchedGifs = function (browser) {
   let originalNumberOfGifs = 0;
   let scrolledNumberOfGifs = 0;
 
   browser
     .url('http://localhost:3001')
     .waitForElementVisible('body')
-    .waitForElementVisible('.gif-column:first-of-type');
 
+  browser
+  .setValue('.search > input[type="text"]', 'witch')
+  .click('.search > button')
 
-  browser.elements('css selector', '.gif-wrapper',
+  browser.elements('css selector', '.gif-wrapper > img[alt="You found me!"]',
     result => {
       originalNumberOfGifs = result.value.length;
 
       browser.execute(scrollToBottomOfPage, [], () => {
         browser.pause(1000);
 
-        browser.elements('css selector', '.gif-wrapper', result => {
+        browser.elements('css selector', '.gif-wrapper > img[alt="You found me!"]', result => {
           scrolledNumberOfGifs = result.value.length;
 
           browser.assert.notEqual(originalNumberOfGifs, 0);
