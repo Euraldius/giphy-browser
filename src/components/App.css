@@ -60,3 +60,12 @@ body {
 {
   background-color: #353535;
 }
+
+.error p {
+  background-color: #16fc26;
+  color: #353535;
+  font-weight: bold;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+}
