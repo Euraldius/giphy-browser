@@ -9,17 +9,17 @@ this.homePageInfinitelyScrollsTrendingGifs = function (browser) {
   browser
     .url('http://localhost:3001')
     .waitForElementVisible('body')
-    .waitForElementVisible('.gif:first-of-type');
+    .waitForElementVisible('.gif-column:first-of-type');
 
 
-  browser.elements('css selector', '.gif',
+  browser.elements('css selector', '.gif-wrapper',
     result => {
       originalNumberOfGifs = result.value.length;
 
       browser.execute(scrollToBottomOfPage, [], () => {
         browser.pause(1000);
 
-        browser.elements('css selector', '.gif', result => {
+        browser.elements('css selector', '.gif-wrapper', result => {
           scrolledNumberOfGifs = result.value.length;
 
           browser.assert.notEqual(originalNumberOfGifs, 0);

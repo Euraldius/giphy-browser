@@ -46,7 +46,7 @@ describe('<Gif />', () => {
       const image = wrapper.find('img');
       image.simulate('click');
 
-      const closeButton = wrapper.find('.close-full-size');
+      const closeButton = wrapper.find('.close-full-size button');
       closeButton.simulate('click');
 
       expect(wrapper).not.toContainMatchingElement('.full-size-gif');

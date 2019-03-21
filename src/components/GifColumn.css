@@ -1,0 +1,12 @@
+.gif-wrapper {
+  margin-bottom: 10px;
+}
+
+.gif-column {
+  margin-right: 10px;
+  width: 200px;
+}
+
+.gif-column:last-child {
+  margin-right: 0;
+}

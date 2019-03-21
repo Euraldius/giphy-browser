@@ -1,5 +1,5 @@
 this.userClicksOnGifToViewFullSize = function (browser) {
-  const firstGifOnPage = '.gif:first-of-type > img';
+  const firstGifOnPage = '.gif-column:first-of-type > .gif-wrapper:first-of-type > img';
 
   browser
     .url('http://localhost:3001')
@@ -16,7 +16,7 @@ this.userClicksOnGifToViewFullSize = function (browser) {
       browser.assert.equal(result.value, 'http://localhost:3002/black-cat.gif');
   });
 
-  browser.click('.close-full-size')
+  browser.click('.close-full-size button')
     .waitForElementNotPresent('.full-size-gif')
     .end();
 }

@@ -9,7 +9,7 @@ this.userSearchesForGifs = function (browser) {
     .getText('.search-results', result => {
       browser.assert.equal(result.value, 'Your search for "witch" has 120 results.');
     })
-    .getAttribute('.gif:first-of-type > img', 'alt', result => {
+    .getAttribute('.gif-column:first-of-type > .gif-wrapper:first-of-type > img', 'alt', result => {
       browser.assert.equal(result.value, 'You found me!');
     });
 

@@ -3,7 +3,7 @@ module.exports = {
     browser
       .url('http://localhost:3001')
       .waitForElementVisible('body')
-      .waitForElementVisible('.gif:first-of-type')
+      .waitForElementVisible('.gif-column:first-of-type')
 
     browser.expect.element('body').text.to.contain('trending gifs');
 

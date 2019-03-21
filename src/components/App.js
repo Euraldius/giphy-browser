@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Waypoint } from 'react-waypoint';
 import './App.css';
-import GifList from './GifList';
+import GifGrid from './GifGrid';
 import Search from './Search';
 
 class App extends Component {
@@ -61,7 +61,7 @@ class App extends Component {
             <Search onSubmit={searchForGifs} />
           </div>
         ): null }
-        <GifList gifs={gifs} />
+        <GifGrid gifs={gifs} />
         { this.enableInfiniteScroll() ? (
           <Waypoint key={gifs.length} onEnter={this.loadMoreGifs()} />
         ) : null }

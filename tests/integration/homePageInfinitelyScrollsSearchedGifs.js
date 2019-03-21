@@ -14,14 +14,14 @@ this.homePageInfinitelyScrollsSearchedGifs = function (browser) {
   .setValue('.search > input[type="text"]', 'witch')
   .click('.search > button')
 
-  browser.elements('css selector', '.gif > img[alt="You found me!"]',
+  browser.elements('css selector', '.gif-wrapper > img[alt="You found me!"]',
     result => {
       originalNumberOfGifs = result.value.length;
 
       browser.execute(scrollToBottomOfPage, [], () => {
         browser.pause(1000);
 
-        browser.elements('css selector', '.gif > img[alt="You found me!"]', result => {
+        browser.elements('css selector', '.gif-wrapper > img[alt="You found me!"]', result => {
           scrolledNumberOfGifs = result.value.length;
 
           browser.assert.notEqual(originalNumberOfGifs, 0);

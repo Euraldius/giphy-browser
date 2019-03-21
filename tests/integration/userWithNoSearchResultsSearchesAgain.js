@@ -14,7 +14,7 @@ this.userWithNoSearchResultsSearchesAgain = function (browser) {
     .setValue('.search > input[type="text"]', 'witch')
     .click('.search > button')
 
-  browser.expect.element('.gif:first-of-type > img')
+  browser.expect.element('.gif-column:first-of-type > .gif-wrapper:first-of-type > img')
     .to.have.attribute('alt').equals('You found me!');
 
   browser.end();
