@@ -33,7 +33,7 @@ describe('searchForGifs', () => {
     return store.dispatch(searchForGifs('black cats')).then(() => {
       expect(fetchMock.called()).toBe(true);
       expect(store.getActions()).toEqual([
-        { type: REQUEST_SEARCH_GIFS },
+        { type: REQUEST_SEARCH_GIFS, isNewSearch: true, },
         { type: RECEIVE_SEARCH_GIFS, gifs, pagination: {}, searchTerm: 'black cats' }
       ]);
     });
@@ -59,7 +59,7 @@ describe('searchForGifs', () => {
       return store.dispatch(searchForGifs('black cats')).then(() => {
         expect(fetchMock.called()).toBe(true);
         expect(store.getActions()).toEqual([
-          { type: REQUEST_SEARCH_GIFS },
+          { type: REQUEST_SEARCH_GIFS, isNewSearch: true },
           { type: RECEIVE_SEARCH_GIFS, gifs, pagination: {}, searchTerm: 'black cats' }
         ]);
       });
@@ -86,7 +86,7 @@ describe('searchForGifs', () => {
       return store.dispatch(searchForGifs('witch')).then(() => {
         expect(fetchMock.called()).toBe(true);
         expect(store.getActions()).toEqual([
-          { type: REQUEST_SEARCH_GIFS },
+          { type: REQUEST_SEARCH_GIFS, isNewSearch: false },
           { type: RECEIVE_SEARCH_GIFS, gifs, pagination: {}, searchTerm: 'witch' }
         ]);
       });
@@ -109,7 +109,7 @@ describe('searchForGifs', () => {
       return store.dispatch(searchForGifs('witch')).then(() => {
         expect(fetchMock.called()).toBe(true);
         expect(store.getActions()).toEqual([
-          { type: REQUEST_SEARCH_GIFS },
+          { type: REQUEST_SEARCH_GIFS, isNewSearch: true },
           { type: REQUEST_SEARCH_GIFS_FAILED },
         ]);
       });
@@ -135,7 +135,7 @@ describe('searchForGifs', () => {
       return store.dispatch(searchForGifs('witch')).then(() => {
         expect(fetchMock.called()).toBe(true);
         expect(store.getActions()).toEqual([
-          { type: REQUEST_SEARCH_GIFS },
+          { type: REQUEST_SEARCH_GIFS, isNewSearch: true },
           { type: REQUEST_SEARCH_GIFS_FAILED },
         ]);
       });

@@ -31,6 +31,7 @@ class App extends Component {
     const {
       error,
       gifs,
+      gifListRefreshing,
       searchForGifs,
       searchResultTotal,
       searchTerm,
@@ -61,7 +62,7 @@ class App extends Component {
             <Search onSubmit={searchForGifs} />
           </div>
         ): null }
-        <GifGrid gifs={gifs} />
+        { !gifListRefreshing ? <GifGrid gifs={gifs} /> : null }
         { this.enableInfiniteScroll() ? (
           <Waypoint key={gifs.length} onEnter={this.loadMoreGifs()} />
         ) : null }

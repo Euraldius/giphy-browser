@@ -118,4 +118,20 @@ describe('mapStateToProps', () => {
       expect(props.error).toBeNull();
     });
   });
+
+  describe('when there is an active new search', () => {
+    it('marks the gif list as refreshing', () => {
+      const state = {
+        searchGifs: {
+          active: true,
+          isFetching: true,
+          isNewSearch: true,
+        },
+        trendingGifs: {},
+      }
+      const props = mapStateToProps(state);
+
+      expect(props.gifListRefreshing).toBe(true);
+    });
+  });
 });

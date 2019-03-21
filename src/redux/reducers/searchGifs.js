@@ -9,6 +9,7 @@ const searchGifsInitialState = {
   error: null,
   gifs: [],
   isFetching: false,
+  isNewSearch: true,
   offset: 0,
   searchTerm: '',
 };
@@ -36,6 +37,7 @@ const searchGifsReducers = (state = searchGifsInitialState, action) => {
         active: true,
         error: null,
         isFetching: true,
+        isNewSearch: action.isNewSearch,
       };
 
       return newState;

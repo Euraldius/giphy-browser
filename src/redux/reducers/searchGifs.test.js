@@ -67,8 +67,8 @@ describe('searchGifsReducers', () => {
 
   describe('REQUEST_SEARCH_GIFS', () => {
     it('informs the state that the user is searching', () => {
-      const state = { gifs: [], offset: 20, searchTerm: 'witch' };
-      const action = { type: REQUEST_SEARCH_GIFS, searchTerm: 'witch' };
+      const state = { gifs: [], offset: 20, isNewSearch: false };
+      const action = { type: REQUEST_SEARCH_GIFS, isNewSearch: true  };
 
       const newState = searchGifsReducers(state, action);
 
@@ -77,8 +77,8 @@ describe('searchGifsReducers', () => {
         error: null,
         gifs: [],
         isFetching: true,
+        isNewSearch: true,
         offset: 20,
-        searchTerm: 'witch',
       });
     });
   });

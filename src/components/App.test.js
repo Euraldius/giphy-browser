@@ -10,6 +10,16 @@ describe('<App />', () => {
     expect(fetchTrendingGifs).toHaveBeenCalled();
   });
 
+  describe('when the gif list is refreshing', () => {
+    it('does not render the gif grid', () => {
+      const wrapper = shallow(
+        <App gifListRefreshing gifs={[]} fetchTrendingGifs={() => {}} />
+      );
+
+      expect(wrapper).not.toContainMatchingElement('GifGrid');
+    });
+  });
+
   describe('when there is no error', () => {
     it('does not show the error element', () => {
       const wrapper = shallow(<App gifs={[]} fetchTrendingGifs={() => {}} />);

@@ -10,9 +10,13 @@ const gifs = state => {
 
 const error = ({ trendingGifs, searchGifs }) => (searchGifs.error || trendingGifs.error);
 const isFetching = ({ trendingGifs, searchGifs }) => (searchGifs.isFetching || trendingGifs.isFetching);
+const gifListRefreshing = ({ searchGifs: { active, isFetching, isNewSearch } }) => (
+  active && isFetching && isNewSearch
+);
 
 export const mapStateToProps = state => ({
   error: error(state),
+  gifListRefreshing: gifListRefreshing(state),
   gifs: gifs(state),
   isFetching: isFetching(state),
   searchResultTotal: state.searchGifs.resultTotal,

@@ -10,9 +10,10 @@ const requestSearchGifsFailed = () => {
   };
 };
 
-const requestSearchGifs = () => {
+const requestSearchGifs = (isNewSearch) => {
   return {
     type: REQUEST_SEARCH_GIFS,
+    isNewSearch,
   };
 };
 
@@ -33,8 +34,9 @@ export const searchForGifs = newSearchTerm => (dispatch, getState) => {
   } = state;
   const encodedSearchTerm = encodeURI(newSearchTerm);
   let { searchGifs: { offset } } = state;
+  const isNewSearch = newSearchTerm !== searchTerm;
 
-  if (newSearchTerm !== searchTerm) {
+  if (isNewSearch) {
     offset = 0;
   }
 
@@ -43,7 +45,7 @@ export const searchForGifs = newSearchTerm => (dispatch, getState) => {
                     `q=${encodedSearchTerm}&` +
                     `offset=${offset}&limit=100`;
 
-  dispatch(requestSearchGifs());
+  dispatch(requestSearchGifs(isNewSearch));
 
   return fetch(searchURL)
     .then(response => response.json().then(json => ({ status: response.status, json })))
