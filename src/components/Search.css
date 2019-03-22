@@ -15,6 +15,7 @@
 }
 
 .search input[type="text"] {
+  border: 2px inset #c9c9c9;
   height: 30px;
   margin-right: 12px;
   padding-left: 12px;
@@ -25,5 +26,6 @@
 
 .search button {
   background-color: #535353;
+  border: 2px outset #c9c9c9;
   height: 36px;
 }
