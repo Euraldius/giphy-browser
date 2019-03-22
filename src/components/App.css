@@ -1,9 +1,23 @@
-
 @font-face {
   font-family: 'Bitwise';
-  font-style: normal;
-  font-weight: 400;
   src: url(../assets/fonts/bitwise.ttf);
+}
+
+@font-face {
+  font-family: 'Courier New';
+  src: url(../assets/fonts/cour.ttf);
+}
+
+@font-face {
+  font-family: 'Courier New';
+  font-weight: bold;
+  src: url(../assets/fonts/courbd.ttf);
+}
+
+@font-face {
+  font-family: 'Courier New';
+  font-style: italic;
+  src: url(../assets/fonts/couri.ttf);
 }
 
 body {
