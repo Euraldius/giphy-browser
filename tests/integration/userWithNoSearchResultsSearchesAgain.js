@@ -12,10 +12,11 @@ this.userWithNoSearchResultsSearchesAgain = function (browser) {
 
   browser
     .setValue('.search > input[type="search"]', 'witch')
-    .click('.search > button')
+    .expect.element('.search > input[type="search"]')
+    .to.have.attribute('value').equals('witch');
+
+  browser.click('.search > button')
 
   browser.expect.element('.gif-column:first-of-type > .gif-wrapper:first-of-type > img')
     .to.have.attribute('alt').equals('You found me!');
-
-  browser.end();
 };

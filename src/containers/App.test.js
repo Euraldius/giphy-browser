@@ -1,176 +1,108 @@
 import { mapStateToProps } from './App';
+import { SEARCHING, TRENDING } from '../constants';
 
 describe('mapStateToProps', () => {
-  describe('when there is an active search', () => {
-    it('selects the searched gifs for display', () => {
-      const searchGifs = [{ id: 'search' }];
-      const trendingGifs = [{ id: 'trending' }];
+  describe('when a request is in progress', () => {
+    it('disables infinite scroll', () => {
       const state = {
-        searchGifs: {
-          active: true,
-          gifs: searchGifs,
-          resultTotal: 2,
-        },
-        trendingGifs: {
-          gifs: trendingGifs,
+        app: {
+          isFetching: true,
         },
       };
       const props = mapStateToProps(state);
 
-      expect(props.gifs).toEqual(searchGifs);
-      expect(props.allGifsLoaded).toBe(false);
+      expect(props.enableInfiniteScroll).toBe(false);
+    });
+  });
+
+  describe('when there are no gifs', () => {
+    it('disables infinite scroll', () => {
+      const state = {
+        app: {
+          isFetching: false,
+          gifs: [],
+        },
+      };
+      const props = mapStateToProps(state);
+
+      expect(props.enableInfiniteScroll).toBe(false);
+    });
+  });
+
+  describe('all available gifs have been loaded', () => {
+    it('disables infinite scroll', () => {
+      const state = {
+        app: {
+          isFetching: false,
+          gifs: [{ id: 'gif' }],
+          resultTotal: 1,
+        },
+      };
+      const props = mapStateToProps(state);
+
+      expect(props.enableInfiniteScroll).toBe(false);
+    });
+  });
+
+  describe('when all requests have finished and there are gifs', () => {
+    it('enables infinite scroll', () => {
+      const state = {
+        app: {
+          isFetching: false,
+          gifs: [{ id: 'gif' }],
+          resultTotal: 2,
+        },
+      };
+      const props = mapStateToProps(state);
+
+      expect(props.enableInfiniteScroll).toBe(true);
+    });
+  });
+
+  describe('when in trending mode', () => {
+    it('marks the app as not searching', () => {
+      const state = {
+        app: {
+          gifs: [],
+          mode: TRENDING,
+          resultTotal: 0,
+        },
+      };
+      const props = mapStateToProps(state);
+
+      expect(props.searching).toBe(false);
+      expect(props.emptySearch).toBe(false);
+    });
+  });
+
+  describe('when in search mode', () => {
+    it('marks the app as searching', () => {
+      const state = {
+        app: {
+          gifs: [],
+          mode: SEARCHING,
+          resultTotal: 1,
+        },
+      };
+      const props = mapStateToProps(state);
+
+      expect(props.searching).toBe(true);
+      expect(props.emptySearch).toBe(false);
     });
 
-    describe('and all gifs have been loaded', () => {
-      it('marks that all gifs have been loaded', () => {
-        const searchGifs = [{ id: 'search' }];
-        const trendingGifs = [{ id: 'trending' }];
+    describe('and the gif search has no results', () => {
+      it('marks that there is an empty search', () => {
         const state = {
-          searchGifs: {
-            active: true,
-            gifs: searchGifs,
-            resultTotal: 1,
-          },
-          trendingGifs: {
-            gifs: trendingGifs,
+          app: {
+            gifs: [],
+            mode: SEARCHING,
+            resultTotal: 0,
           },
         };
         const props = mapStateToProps(state);
 
-        expect(props.gifs).toEqual(searchGifs);
-        expect(props.allGifsLoaded).toBe(true);
+        expect(props.emptySearch).toBe(true);
       });
-    });
-  });
-
-  describe('when there is no active search', () => {
-    it('selects the trending gifs for display', () => {
-      const searchGifs = jest.fn();
-      const trendingGifs = jest.fn();
-      const state = {
-        searchGifs: {
-          active: false,
-          gifs: searchGifs,
-        },
-        trendingGifs: {
-          gifs: trendingGifs,
-        },
-      };
-      const props = mapStateToProps(state);
-
-      expect(props.gifs).toBe(trendingGifs);
-      expect(props.allGifsLoaded).toBe(false);
-    });
-  });
-
-  describe('if there is an active search request', () => {
-    it('marks that there is an active request', () => {
-      const state = {
-        searchGifs: {
-          isFetching: true,
-        },
-        trendingGifs: {
-          isFetching: false,
-        },
-      };
-      const props = mapStateToProps(state);
-
-      expect(props.isFetching).toBe(true);
-    });
-  });
-
-  describe('if there is an active trending request', () => {
-    it('marks that there is an active request', () => {
-      const state = {
-        searchGifs: {
-          isFetching: false,
-        },
-        trendingGifs: {
-          isFetching: true,
-        },
-      };
-      const props = mapStateToProps(state);
-
-      expect(props.isFetching).toBe(true);
-    });
-  });
-
-  describe('if there is no active request', () => {
-    it('marks that there is no active request', () => {
-      const state = {
-        searchGifs: {
-          isFetching: false,
-        },
-        trendingGifs: {
-          isFetching: false,
-        },
-      };
-      const props = mapStateToProps(state);
-
-      expect(props.isFetching).toBe(false);
-    });
-  });
-
-  describe('if a request resulted in an error', () => {
-    it('passes the error along, giving priority to search errors', () => {
-      const state = {
-        searchGifs: {
-          error: 'error searching gifs'
-        },
-        trendingGifs: {
-          error: 'error fetching trending gifs',
-        },
-      };
-      const props = mapStateToProps(state);
-
-      expect(props.error).toEqual('error searching gifs');
-    });
-  });
-
-  describe('if there is no error', () => {
-    it('passes null along', () => {
-      const state = {
-        searchGifs: {
-          error: null,
-        },
-        trendingGifs: {
-          error: null,
-        },
-      };
-      const props = mapStateToProps(state);
-
-      expect(props.error).toBeNull();
-    });
-  });
-
-  describe('when there is an active new search', () => {
-    it('marks the gif list as refreshing', () => {
-      const state = {
-        searchGifs: {
-          active: true,
-          gifs: [],
-          isFetching: true,
-          isNewSearch: true,
-        },
-        trendingGifs: {},
-      };
-      const props = mapStateToProps(state);
-
-      expect(props.gifListRefreshing).toBe(true);
-    });
-  });
-
-  describe('when the trending gifs are being refreshed', () => {
-    it('marks the gif list as refreshing', () => {
-      const state = {
-        searchGifs: {},
-        trendingGifs: {
-          refreshing: true
-        },
-      };
-      const props = mapStateToProps(state);
-
-      expect(props.gifListRefreshing).toBe(true);
     });
   });
 });

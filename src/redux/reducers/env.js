@@ -5,8 +5,6 @@ const envInitialState = {
   giphyApiKey,
 };
 
-const envReducers = (state = envInitialState) => {
-  return state;
-};
+const envReducers = (state = envInitialState) => (state);
 
 export default envReducers;

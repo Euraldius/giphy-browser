@@ -1,9 +1,9 @@
-import { fetchTrendingGifs, showTrendingGifs, } from './trendingGifs';
-import { searchForGifs, setSearchTerm } from './searchGifs';
+import { setSearchTerm } from './searchForm';
+import { fetchTrendingGifs, searchForGifs, loadMoreGifs } from './app';
 
-export default {
+export {
   fetchTrendingGifs,
+  loadMoreGifs,
   searchForGifs,
   setSearchTerm,
-  showTrendingGifs,
 };

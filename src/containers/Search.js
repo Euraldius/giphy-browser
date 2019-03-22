@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
 import Search from '../components/Search';
-import actions from '../redux/actions';
+import { searchForGifs, setSearchTerm } from '../redux/actions';
 
-const mapStateToProps = ({ searchGifs: { searchTerm } }) => ({
+const mapStateToProps = ({ searchForm: { searchTerm } }) => ({
   searchTerm,
 });
 
 const mapDispatchToProps = {
-  onChange: actions.setSearchTerm,
-  onSubmit: actions.searchForGifs,
+  onChange: setSearchTerm,
+  onSubmit: searchForGifs,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

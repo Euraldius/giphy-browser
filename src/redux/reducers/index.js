@@ -1,10 +1,6 @@
 import { combineReducers } from 'redux';
-import trendingGifsReducers from './trendingGifs';
-import searchGifsReducers from './searchGifs';
-import envReducers from './env';
+import app from './app';
+import env from './env';
+import searchForm from './searchForm';
 
-export default combineReducers({
-  trendingGifs: trendingGifsReducers,
-  searchGifs: searchGifsReducers,
-  env: envReducers,
-});
+export default combineReducers({ env, app, searchForm });

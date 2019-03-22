@@ -31,7 +31,7 @@ app.get('/v1/gifs/trending', (req, res) => {
   const gifs = testGifs('emma goldman kicks butt', offset);
 
   res.header("Access-Control-Allow-Origin", "*");
-  res.send(JSON.stringify({ data: gifs, pagination: { offset, content: 60 } }));
+  res.send(JSON.stringify({ data: gifs, pagination: { total_count: 1000 } }));
 });
 
 let lastSearchTerm;
@@ -39,7 +39,6 @@ app.get('/v1/gifs/search', (req, res) => {
   const { offset, q } = req.query;
   let data = [];
   let status = 200;
-  let count = 0;
   let total_count = 0;
 
   if (q !== lastSearchTerm && offset > 0) {
@@ -48,7 +47,6 @@ app.get('/v1/gifs/search', (req, res) => {
     const gifTitle = q === 'black cats' ? 'Purrr' : 'You found me!';
 
     data = testGifs(gifTitle, offset);
-    count = data.length;
     total_count = 1000; // arbitrary, increase/decrease if necessary
 
     lastSearchTerm = q;
@@ -56,7 +54,7 @@ app.get('/v1/gifs/search', (req, res) => {
 
   res.header("Access-Control-Allow-Origin", "*");
   res.status(status).send(
-    JSON.stringify({ data, pagination: { offset, count, total_count } })
+    JSON.stringify({ data, pagination: { total_count } })
   );
 });
 

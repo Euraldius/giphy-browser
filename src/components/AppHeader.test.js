@@ -24,8 +24,8 @@ describe('<AppHeader />', () => {
     it('displays a search result status', () => {
       const wrapper = shallow(
         <AppHeader
-          lastSearch="witch"
-          searchResultTotal={120}
+          currentSearch="witch"
+          resultTotal={120}
           searching={true}
         />
       );
@@ -35,15 +35,15 @@ describe('<AppHeader />', () => {
     });
 
     it('allows the user to go back to trending gifs', () => {
-      const showTrendingGifs = jest.fn();
+      const fetchTrendingGifs = jest.fn();
       const wrapper = shallow(
-        <AppHeader searching showTrendingGifs={showTrendingGifs} />
+        <AppHeader searching fetchTrendingGifs={fetchTrendingGifs} />
       );
       const backToTrendingButton = wrapper.find('.back-to-trending');
 
       backToTrendingButton.simulate('click');
 
-      expect(showTrendingGifs).toHaveBeenCalled();
+      expect(fetchTrendingGifs).toHaveBeenCalled();
     });
   });
 

@@ -10,113 +10,63 @@ describe('<App />', () => {
     expect(fetchTrendingGifs).toHaveBeenCalled();
   });
 
-  describe('when the gif list is refreshing', () => {
-    it('does not render the gif grid', () => {
+  describe('when there is not an empty search', () => {
+    it('hides the prompt to search again', () => {
       const wrapper = shallow(
-        <App gifListRefreshing gifs={[]} fetchTrendingGifs={() => {}} />
+        <App emptySearch={false} fetchTrendingGifs={() => {}} />
       );
 
-      expect(wrapper).not.toContainMatchingElement('GifGrid');
+      expect(wrapper).not.toContainMatchingElement('.no-search-results');
     });
   });
 
-  describe('when there are gifs and there is no active request', () => {
-    it('renders an infinite scroll waypoint', () => {
-      const gifs = [{ id: 'test-id' }];
-      const wrapper = shallow(<App isFetching={false} gifs={gifs} fetchTrendingGifs={() => {}} />);
-
-      expect(wrapper).toContainMatchingElement('Waypoint');
-    });
-  });
-
-  describe('when there is an active request', () => {
-    it('does not render an infinite scroll waypoint', () => {
-      const gifs = [{ id: 'test-id' }];
-      const wrapper = shallow(<App isFetching={true} gifs={gifs} fetchTrendingGifs={() => {}} />);
-
-      expect(wrapper).not.toContainMatchingElement('Waypoint');
-    });
-  });
-
-  describe('when there are no gifs', () => {
-    it('does not render an infinite scroll waypoint', () => {
-      const wrapper = shallow(<App isFetching={false} gifs={[]} fetchTrendingGifs={() => {}} />);
-
-      expect(wrapper).not.toContainMatchingElement('Waypoint');
-    });
-  });
-
-  describe('when all gifs have been loaded already', () => {
-    it('does not enable infinite scroll', () => {
-      const wrapper = shallow(
-        <App
-          allGifsLoaded={true}
-          fetchTrendingGifs={() => {}}
-          gifs={[{ id: 'gif' }]}
-          isFetching={false}
-        />
-      );
-
-      expect(wrapper).not.toContainMatchingElement('Waypoint');
-    });
-  });
-
-  describe('when infinite scroll is active and the user is searching for a gif', () => {
-    it('infinitely scrolls the search results', () => {
-      const searchForGifs = jest.fn();
-      const gifs = [{ id: 'test-id' }];
-      const wrapper = shallow(
-        <App
-          fetchTrendingGifs={() => {}}
-          gifs={gifs}
-          searchForGifs={searchForGifs}
-          searching={true}
-        />
-      );
-      const waypoint = wrapper.find('Waypoint');
-      const onEnter = waypoint.prop('onEnter');
-
-      onEnter();
-
-      expect(searchForGifs).toHaveBeenCalled();
-    });
-  });
-
-  describe('when infinite scroll is active and the user is not searching for a gif', () => {
-    it('infinitely scrolls trending gifs', () => {
-      const fetchTrendingGifs = jest.fn();
-      const gifs = [{ id: 'test-id' }];
-      const wrapper = shallow(
-        <App
-          fetchTrendingGifs={fetchTrendingGifs}
-          gifs={gifs}
-          searching={false}
-        />
-      );
-      const waypoint = wrapper.find('Waypoint');
-
-      expect(waypoint).toHaveProp('onEnter', fetchTrendingGifs);
-    });
-  });
-
-  describe('when a search returns with no results', () => {
+  describe('when there is an empty search', () => {
     it('prompts the user to search again', () => {
       const wrapper = shallow(
         <App
-          fetchTrendingGifs={() => {}}
+          currentSearch="witch"
+          emptySearch
           gifs={[]}
-          searchResultTotal={0}
-          lastSearch="good governance"
-          searching={true}
+          fetchTrendingGifs={() => {}}
         />
       );
-      const header = wrapper.find('header');
+      const noSearchResults = wrapper.find('.no-search-results');
 
-      expect(wrapper).toIncludeText(
-        'Your search for "good governance" returned no results.'
+      expect(noSearchResults).toIncludeText(
+        'Your search for "witch" returned no results.',
       );
-      expect(header).not.toContainMatchingElement('Connect(Search)');
-      expect(wrapper).toContainMatchingElement('Connect(Search)');
+      expect(noSearchResults).toContainMatchingElement('Connect(Search)');
+    });
+  });
+
+  describe('when infinite scroll is enabled', () => {
+    it('renders a waypoint to trigger the load of more gifs', () => {
+      const loadMoreGifs = jest.fn();
+      const wrapper = shallow(
+        <App
+          enableInfiniteScroll
+          gifs={[]}
+          fetchTrendingGifs={() => {}}
+          loadMoreGifs={loadMoreGifs}
+        />
+      );
+      const waypoint = wrapper.find('Waypoint');
+
+      expect(waypoint).toHaveProp('onEnter', loadMoreGifs);
+    });
+  });
+
+  describe('when infinite scroll is disabled', () => {
+    it('does not render a waypoint for loading more gifs', () => {
+      const wrapper = shallow(
+        <App
+          enableInfiniteScroll={false}
+          gifs={[]}
+          fetchTrendingGifs={() => {}}
+        />
+      );
+
+      expect(wrapper).not.toContainMatchingElement('Waypoint');
     });
   });
 });

@@ -10,41 +10,27 @@ class App extends Component {
     this.props.fetchTrendingGifs();
   }
 
-  enableInfiniteScroll = () => {
-    const { gifs, isFetching, allGifsLoaded } = this.props;
-
-    return gifs.length > 0 && !isFetching && !allGifsLoaded;
-  }
-
-  loadMoreGifs = () => {
-    const { fetchTrendingGifs, searchForGifs, searching } = this.props;
-
-    return searching ? searchForGifs : fetchTrendingGifs;
-  }
-
-  emptySearch = () => {
-    const { searching, searchResultTotal } = this.props;
-
-    return searching && searchResultTotal === 0;
-  }
-
   render() {
-    const { gifs, gifListRefreshing, lastSearch } = this.props;
+    const {
+      currentSearch,
+      emptySearch,
+      enableInfiniteScroll,
+      gifs,
+      loadMoreGifs,
+    } = this.props;
 
     return (
       <div>
-        <AppHeader {...this.props} emptySearch={this.emptySearch()} />
-        { this.emptySearch() && (
+        <AppHeader {...this.props} />
+        { emptySearch && (
           <div className="no-search-results">
-            <p>Your search for "{lastSearch}" returned no results.</p>
+            <p>Your search for "{currentSearch}" returned no results.</p>
             <p>Would you like to search for something else?</p>
             <Search />
           </div>
         ) }
-        { !gifListRefreshing && <GifGrid gifs={gifs} /> }
-        { this.enableInfiniteScroll() && (
-          <Waypoint key={gifs.length} onEnter={this.loadMoreGifs()} />
-        ) }
+        <GifGrid gifs={gifs} />
+        { enableInfiniteScroll && <Waypoint key={gifs.length} onEnter={loadMoreGifs} /> }
       </div>
     );
   }
