@@ -47,14 +47,17 @@
 }
 
 .back-to-trending {
-  border: none;
   background: none;
-  color: #a1a1a1;
+  border: 1px solid #a1a1a1;
+  color: #16fc26;
   font-family: inherit;
   font-size: 14px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 8px;
 }
 
 .back-to-trending:hover {
-  color: #16fc26;
   cursor: pointer;
+  font-style: italic;
 }
