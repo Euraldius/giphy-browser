@@ -72,6 +72,32 @@ This will:
     This server is a simple Express app that can be found in `./tests/support`.
 3. Run all nightwatch tests in the `./tests/integration` folder.
 
+
+#### The tests are failing!
+
+The `npm run nightwatch` command runs a custom [script](https://github.com/Euraldius/giphy-browser/blob/master/tests/scripts/run_nightwatch.sh)
+that starts the app and fake Giphy server in the background, then sleeps for 5
+seconds before running the tests.
+
+_It is possible_ that the tests begin running before the background processes
+have finished starting up. If you're getting mysterious failures, either try
+increasing the [sleep time](https://github.com/Euraldius/giphy-browser/blob/master/tests/scripts/run_nightwatch.sh#L5)
+or run the commands manually as follows.
+
+```
+REACT_APP_TEST_ENV=nightwatch PORT=3001 BROWSER=none npm start
+```
+
+```
+node ./tests/support/fakeGiphyServer.js
+```
+
+and finally:
+
+```
+npx nightwatch
+```
+
 #### Debugging Nightwatch tests
 
 Nightwatch brings up a Firefox browser to run the tests in. You can use
