@@ -1,3 +1,7 @@
+::placeholder {
+  color: #16fc26;
+}
+
 .search {
   font-family: 'Courier New';
   font-weight: bold;
@@ -13,7 +17,10 @@
   font-weight: inherit;
 }
 
-.search input {
+.search input[type="search"] {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
   -webkit-border-radius: 0;
   border-radius: 0;
   border: 2px inset #c9c9c9;
