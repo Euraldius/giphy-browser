@@ -9,7 +9,7 @@ this.userInfinitelyScrollsSearchedGifs = function (browser) {
     .waitForElementVisible('body')
 
   browser
-  .setValue('.search > input[type="text"]', 'witch')
+  .setValue('.search > input[type="search"]', 'witch')
   .click('.search > button')
 
   browser.elements('css selector', '.gif-wrapper > img[alt="You found me!"]',
