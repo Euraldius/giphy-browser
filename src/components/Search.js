@@ -35,7 +35,6 @@ class Search extends Component {
         aria-label="Search for gifs"
         placeholder="SEARCH FOR GIFS"
         onChange={this.setValue}
-        type="text"
         value={searchText}
       />
       <button type="submit">

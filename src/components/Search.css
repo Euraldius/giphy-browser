@@ -2,8 +2,7 @@
   font-family: 'Courier New';
   font-weight: bold;
   font-size: 18px;
-  margin-bottom: 12px;
-  margin-top: 12px;
+  height: 36px;
 }
 
 .search input, .search button {
@@ -14,12 +13,13 @@
   font-weight: inherit;
 }
 
-.search input[type="text"] {
+.search input {
   border: 2px inset #c9c9c9;
-  height: 30px;
+  border-radius: 0;
+  box-sizing: border-box;
+  height: 100%;
   margin-right: 12px;
   padding-left: 12px;
-  padding-right: 8px;
   vertical-align: top;
   width: 60%;
 }
@@ -27,5 +27,5 @@
 .search button {
   background-color: #535353;
   border: 2px outset #c9c9c9;
-  height: 36px;
+  height: 100%;
 }
