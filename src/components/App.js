@@ -34,17 +34,17 @@ class App extends Component {
     return (
       <div>
         <AppHeader {...this.props} emptySearch={this.emptySearch()} />
-        { this.emptySearch() ? (
+        { this.emptySearch() && (
           <div className="no-search-results">
             <p>Your search for "{lastSearch}" returned no results.</p>
             <p>Would you like to search for something else?</p>
             <Search />
           </div>
-        ): null }
-        { !gifListRefreshing ? <GifGrid gifs={gifs} /> : null }
-        { this.enableInfiniteScroll() ? (
+        ) }
+        { !gifListRefreshing && <GifGrid gifs={gifs} /> }
+        { this.enableInfiniteScroll() && (
           <Waypoint key={gifs.length} onEnter={this.loadMoreGifs()} />
-        ) : null }
+        ) }
       </div>
     );
   }

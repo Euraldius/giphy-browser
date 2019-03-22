@@ -28,14 +28,14 @@ class Gif extends Component {
 
     return (
       <>
-        {showFullGif ? (
+        {showFullGif && (
           <div className="full-size-gif">
             <div className="close-full-size">
               <button onClick={this.toggleFullSize}>X</button>
             </div>
             <img src={original.url} alt={title} />
           </div>
-        ): null}
+        )}
         <img
           alt={title}
           className="fixed-size-gif"
