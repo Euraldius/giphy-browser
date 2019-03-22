@@ -11,6 +11,7 @@
 
 .full-size-gif img {
   margin: auto;
+  max-width: 95%;
 }
 
 .close-full-size {
@@ -26,7 +27,7 @@
   font-family: inherit;
   font-size: 2rem;
   font-weight: bold;
-  margin-right: 50px;
+  margin-right: 20px;
   margin-top: 20px;
 }
 
