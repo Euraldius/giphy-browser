@@ -1,7 +1,7 @@
 import { giphyApiKey, giphyApiHost } from '../../env';
 
 const envInitialState = {
-  giphyApiHost: giphyApiHost(),
+  giphyApiHost,
   giphyApiKey,
 };
 
