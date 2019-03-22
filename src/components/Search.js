@@ -3,40 +3,27 @@ import './Search.css';
 import SearchIcon from './icons/SearchIcon';
 
 class Search extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      searchText: '',
-    }
-  }
-
-  setValue = ({ target: { value } }) => {
-    this.setState({
-      searchText: value,
-    });
+  onChange = ({ target: { value } }) => {
+    this.props.onChange(value);
   }
 
   onSubmit = (event) => {
     event.preventDefault();
 
-    const { onSubmit } = this.props;
-    const { searchText } = this.state;
-
-    onSubmit(searchText);
+    this.props.onSubmit();
   }
 
   render() {
-    const { searchText } = this.state;
+    const { searchTerm } = this.props;
 
     return (
       <form className="search" onSubmit={this.onSubmit}>
       <input
         aria-label="Search for gifs"
         placeholder="SEARCH FOR GIFS"
-        onChange={this.setValue}
+        onChange={this.onChange}
         type="search"
-        value={searchText}
+        value={searchTerm}
       />
       <button type="submit">
         <SearchIcon />

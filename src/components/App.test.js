@@ -70,7 +70,6 @@ describe('<App />', () => {
           fetchTrendingGifs={() => {}}
           gifs={gifs}
           searchForGifs={searchForGifs}
-          searchTerm={'witch'}
           searching={true}
         />
       );
@@ -79,7 +78,7 @@ describe('<App />', () => {
 
       onEnter();
 
-      expect(searchForGifs.mock.calls[0][0]).toEqual('witch');
+      expect(searchForGifs).toHaveBeenCalled();
     });
   });
 
@@ -107,7 +106,7 @@ describe('<App />', () => {
           fetchTrendingGifs={() => {}}
           gifs={[]}
           searchResultTotal={0}
-          searchTerm="good governance"
+          lastSearch="good governance"
           searching={true}
         />
       );
@@ -116,8 +115,8 @@ describe('<App />', () => {
       expect(wrapper).toIncludeText(
         'Your search for "good governance" returned no results.'
       );
-      expect(header).not.toContainMatchingElement('Search');
-      expect(wrapper).toContainMatchingElement('Search');
+      expect(header).not.toContainMatchingElement('Connect(Search)');
+      expect(wrapper).toContainMatchingElement('Connect(Search)');
     });
   });
 });

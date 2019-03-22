@@ -3,7 +3,7 @@ import { Waypoint } from 'react-waypoint';
 import './App.css';
 import AppHeader from './AppHeader';
 import GifGrid from './GifGrid';
-import Search from './Search';
+import Search from '../containers/Search';
 
 class App extends Component {
   componentDidMount() {
@@ -17,9 +17,9 @@ class App extends Component {
   }
 
   loadMoreGifs = () => {
-    const { fetchTrendingGifs, searchForGifs, searching, searchTerm } = this.props;
+    const { fetchTrendingGifs, searchForGifs, searching } = this.props;
 
-    return searching ? () => searchForGifs(searchTerm) : fetchTrendingGifs;
+    return searching ? searchForGifs : fetchTrendingGifs;
   }
 
   emptySearch = () => {
@@ -29,16 +29,16 @@ class App extends Component {
   }
 
   render() {
-    const { gifs, gifListRefreshing, searchForGifs, searchTerm } = this.props;
+    const { gifs, gifListRefreshing, lastSearch } = this.props;
 
     return (
       <div>
         <AppHeader {...this.props} emptySearch={this.emptySearch()} />
         { this.emptySearch() ? (
           <div className="no-search-results">
-            <p>Your search for "{searchTerm}" returned no results.</p>
+            <p>Your search for "{lastSearch}" returned no results.</p>
             <p>Would you like to search for something else?</p>
-            <Search onSubmit={searchForGifs} />
+            <Search />
           </div>
         ): null }
         { !gifListRefreshing ? <GifGrid gifs={gifs} /> : null }

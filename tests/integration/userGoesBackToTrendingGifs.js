@@ -13,4 +13,6 @@ this.userGoesBackToTrendingGifs = function (browser) {
   .click('.back-to-trending')
   .expect.element('.gif-column:first-of-type > .gif-wrapper:first-of-type > img')
   .to.have.attribute('alt').equals('emma goldman kicks butt');
+
+  browser.expect.element('.search > input').to.have.attribute('value').equals('');
 };

@@ -24,8 +24,8 @@ describe('<AppHeader />', () => {
     it('displays a search result status', () => {
       const wrapper = shallow(
         <AppHeader
+          lastSearch="witch"
           searchResultTotal={120}
-          searchTerm="witch"
           searching={true}
         />
       );

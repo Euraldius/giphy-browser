@@ -3,6 +3,7 @@ import {
   RECEIVE_SEARCH_GIFS,
   REQUEST_SEARCH_GIFS,
   REQUEST_SEARCH_GIFS_FAILED,
+  SET_SEARCH_TERM,
 } from '../actionTypes';
 
 const searchGifsInitialState = {
@@ -11,6 +12,7 @@ const searchGifsInitialState = {
   gifs: [],
   isFetching: false,
   isNewSearch: true,
+  lastSearch: null,
   offset: 0,
   searchTerm: '',
 };
@@ -18,8 +20,8 @@ const searchGifsInitialState = {
 const searchGifsReducers = (state = searchGifsInitialState, action) => {
   switch(action.type) {
     case RECEIVE_SEARCH_GIFS: {
-      const { searchTerm, pagination: { count, offset, total_count } } = action;
-      const isNewSearch = searchTerm !== state.searchTerm;
+      const { isNewSearch, searchTerm } = state;
+      const { pagination: { count, offset, total_count } } = action;
       const existingGifs = isNewSearch ? [] : state.gifs;
 
       return {
@@ -27,9 +29,9 @@ const searchGifsReducers = (state = searchGifsInitialState, action) => {
         error: null,
         gifs: existingGifs.concat(action.gifs),
         isFetching: false,
+        lastSearch: searchTerm,
         offset: offset + count,
         resultTotal: total_count,
-        searchTerm,
       };
     }
     case REQUEST_SEARCH_GIFS: {
@@ -38,7 +40,7 @@ const searchGifsReducers = (state = searchGifsInitialState, action) => {
         active: true,
         error: null,
         isFetching: true,
-        isNewSearch: action.isNewSearch,
+        isNewSearch: state.searchTerm !== state.lastSearch,
       };
 
       return newState;
@@ -52,6 +54,12 @@ const searchGifsReducers = (state = searchGifsInitialState, action) => {
     }
     case CLEAR_SEARCH_GIFS: {
       return searchGifsInitialState;
+    }
+    case SET_SEARCH_TERM: {
+      return {
+        ...state,
+        searchTerm: action.searchTerm,
+      };
     }
     default:
       return state;

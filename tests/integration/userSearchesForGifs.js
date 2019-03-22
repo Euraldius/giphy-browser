@@ -4,14 +4,15 @@ this.userSearchesForGifs = function (browser) {
   .waitForElementVisible('body');
 
   browser
-    .setValue('.search > input[type="search"]', 'witch')
-    .click('.search > button')
-    .getText('.search-results', result => {
-      browser.assert.equal(result.value, 'Your search for "witch" has 1000 results.');
-    })
-    .getAttribute('.gif-column:first-of-type > .gif-wrapper:first-of-type > img', 'alt', result => {
-      browser.assert.equal(result.value, 'You found me!');
-    });
+  .setValue('.search > input[type="search"]', 'witch')
+  .click('.search > button')
+  .setValue('.search > input[type="search"]', 'w');
 
-  browser.end();
+  browser.expect.element('.search-results').text.to.contain(
+    'Your search for "witch" has 1000 results.'
+  );
+
+  browser.expect.element(
+    '.gif-column:first-of-type > .gif-wrapper:first-of-type > img'
+  ).to.have.attribute('alt').equals('You found me!');
 }

@@ -1,13 +1,12 @@
 import React from 'react';
 import './AppHeader.css';
-import Search from './Search';
+import Search from '../containers/Search';
 
 const AppHeader = ({
   error,
   emptySearch,
-  searchForGifs,
+  lastSearch,
   searchResultTotal,
-  searchTerm,
   searching,
   showTrendingGifs,
 }) => (
@@ -17,12 +16,12 @@ const AppHeader = ({
     <p className="powered-by">[powered by Giphy]</p>
     { !emptySearch ? (
       <div className="header-search">
-        <Search onSubmit={searchForGifs} />
+        <Search />
       </div>
     ): null }
     { searching && searchResultTotal ? (
       <p className="search-results">
-        Your search for "{searchTerm}" has {searchResultTotal} results.
+        Your search for "{lastSearch}" has {searchResultTotal} results.
       </p>
     ) : null }
     { searching ? (

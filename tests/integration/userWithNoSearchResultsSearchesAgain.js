@@ -1,7 +1,7 @@
 this.userWithNoSearchResultsSearchesAgain = function (browser) {
   browser
-  .url('http://localhost:3001')
-  .waitForElementVisible('body');
+    .url('http://localhost:3001')
+    .waitForElementVisible('body');
 
   browser
     .setValue('.search > input[type="search"]', 'no results')

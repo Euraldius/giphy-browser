@@ -33,8 +33,8 @@ export const mapStateToProps = state => ({
   gifListRefreshing: gifListRefreshing(state),
   gifs: gifs(state),
   isFetching: isFetching(state),
+  lastSearch: state.searchGifs.lastSearch,
   searchResultTotal: state.searchGifs.resultTotal,
-  searchTerm: state.searchGifs.searchTerm,
   searching: state.searchGifs.active,
 });
 
