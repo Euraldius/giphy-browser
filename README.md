@@ -10,7 +10,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### Prereqs
 
-A version of Node matching the version in `.nvmrc`.
+Node 11.10.0
 
 ### 1. Clone the repo
 
