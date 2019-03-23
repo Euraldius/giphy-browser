@@ -1,14 +1,29 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+  font-family: 'Bitwise';
+  src: url(./assets/fonts/bitwise.ttf);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+@font-face {
+  font-family: 'Courier New';
+  src: url(./assets/fonts/cour.ttf);
+}
+
+@font-face {
+  font-family: 'Courier New';
+  font-weight: bold;
+  src: url(./assets/fonts/courbd.ttf);
+}
+
+@font-face {
+  font-family: 'Courier New';
+  font-style: italic;
+  src: url(./assets/fonts/couri.ttf);
+}
+
+body {
+  background-color: #535353;
+  color: #16fc26;
+  font-family: 'Courier New';
+  margin: 0;
+  padding: 0;
 }
